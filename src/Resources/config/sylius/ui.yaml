@@ -1,0 +1,75 @@
+sylius_ui:
+    events:
+        sylius.admin.dashboard.content:
+            blocks:
+                before_header_legacy:
+                    enabled: false
+                after_header_legacy:
+                    enabled: false
+                statistics:
+                    enabled: false
+                after_statistics_legacy:
+                    enabled: false
+                menu:
+                    enabled: false
+                after_menu_legacy:
+                    enabled: false
+                latest:
+                    enabled: false
+                after_content_legacy:
+                    enabled: false
+
+        sylius.shop.layout.header.grid:
+            blocks:
+                cart:
+                    enabled: false
+        
+        sylius.shop.layout.header:
+            blocks:
+                menu:
+                    enabled: false
+
+        sylius.shop.homepage:
+            blocks:
+                banner:
+                    template: "@SyliusShop/Homepage/_banner.html.twig"
+                    priority: 60
+                latest_products:
+                    enabled: false
+                latest_products_carousel:
+                    enabled: false
+                newsletter:
+                    template: "@SyliusShop/Homepage/_newsletter.html.twig"
+                    priority: 30
+                products_grid:
+                    enabled: false
+                about_us:
+                    template: "@SyliusShop/Homepage/_aboutUs.html.twig"
+                    priority: 10
+
+        sylius.admin.customer.show.content:
+            blocks:
+                statistics:
+                    enabled: false
+
+        sylius.admin.customer.show.address:
+            blocks:
+                header:
+                    enabled: false
+                content:
+                    enabled: false
+
+        sylius.admin.customer.show.header.content:
+            blocks:
+                content:
+                    template: "@SyliusAdmin/Customer/Show/_header.html.twig"
+                    priority: 20
+                legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 15
+                    context:
+                        event: sylius.admin.customer.show.header
+                menu:
+#                    enabled: false
+                    template: "@SyliusAdmin/Customer/Show/_headerMenu.html.twig"
+                    priority: 10

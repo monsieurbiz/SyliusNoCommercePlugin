@@ -31,6 +31,7 @@ jobs:
           sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
           echo "date.timezone=UTC" | sudo tee /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
           echo "${{ matrix.php }}" > .php-version
+          php -v
 
       - name: Install symfony CLI
         run: |

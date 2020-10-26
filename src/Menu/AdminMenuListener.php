@@ -25,15 +25,16 @@ final class AdminMenuListener
         $menu->removeChild('catalog');
         $menu->removeChild('marketing');
 
-        $configuration = $menu->getChild('configuration');
-        $configuration->removeChild('currencies');
-        $configuration->removeChild('countries');
-        $configuration->removeChild('zones');
-        $configuration->removeChild('exchange_rates');
-        $configuration->removeChild('payment_methods');
-        $configuration->removeChild('shipping_methods');
-        $configuration->removeChild('shipping_categories');
-        $configuration->removeChild('tax_categories');
-        $configuration->removeChild('tax_rates');
+        if (null !== $configuration = $menu->getChild('configuration')) {
+            $configuration->removeChild('currencies');
+            $configuration->removeChild('countries');
+            $configuration->removeChild('zones');
+            $configuration->removeChild('exchange_rates');
+            $configuration->removeChild('payment_methods');
+            $configuration->removeChild('shipping_methods');
+            $configuration->removeChild('shipping_categories');
+            $configuration->removeChild('tax_categories');
+            $configuration->removeChild('tax_rates');
+        }
     }
 }

@@ -35,7 +35,7 @@ final class ChannelTypeExtension extends AbstractTypeExtension
         ;
     }
 
-    public function getExtendedTypes()
+    public function getExtendedTypes(): array
     {
         return [ChannelType::class];
     }

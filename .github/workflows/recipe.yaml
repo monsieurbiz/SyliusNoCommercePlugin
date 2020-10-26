@@ -25,9 +25,10 @@ jobs:
       - name: Setup PHP
         run: |
           sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
-          echo "date.timezone=UTC" >> /tmp/timezone.ini
-          sudo mv /tmp/timezone.ini /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
-          echo ${{ matrix.php }} > .php-version
+          sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+          echo "date.timezone=UTC" | sudo tee /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
+          echo "${{ matrix.php }}" > .php-version
+          php -v
 
       - uses: actions/checkout@v2
         with:

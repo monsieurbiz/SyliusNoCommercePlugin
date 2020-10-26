@@ -26,8 +26,7 @@ final class MonsieurBizSyliusNoCommerceExtension extends Extension
     public function load(array $config, ContainerBuilder $container): void
     {
         $configuration = $this->getConfiguration([], $container);
-        $config = $this->processConfiguration(/** @scrutinizer ignore-type */ $configuration, $config);
-
+        $this->processConfiguration(/** @scrutinizer ignore-type */ $configuration, $config);
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
     }

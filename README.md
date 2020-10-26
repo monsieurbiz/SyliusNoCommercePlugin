@@ -23,7 +23,7 @@ Basically it disables the routes and updates the admin and frontend templates.
 ## Installation
 
 ```bash
-composer require monsieurbiz/sylius-no-commerce-plugin="1.0-x-dev" --no-scripts
+composer require monsieurbiz/sylius-no-commerce-plugin="1.0.x-dev" --no-scripts
 ```
 
 Change your `config/bundles.php` file to add the line for the plugin : 

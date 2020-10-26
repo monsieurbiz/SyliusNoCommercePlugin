@@ -138,7 +138,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
     /**
      * @param mixed $resource
      * @param string $prefix
-     * @param null $type
+     * @param string|null $type
      *
      * @throws LoaderLoadException
      *

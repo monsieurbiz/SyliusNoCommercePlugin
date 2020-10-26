@@ -13,7 +13,7 @@
 <h1 align="center">No Commerce for Sylius</h1>
 
 [![No Commerce Plugin license](https://img.shields.io/github/license/monsieurbiz/SyliusNoCommercePlugin)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/blob/master/LICENSE.txt)
-[![Tests](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Tests/master?label=tests&logo=github)
+![Tests](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Tests/master?label=tests&logo=github)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/monsieurbiz/SyliusNoCommercePlugin/master?logo=scrutinizer)](https://scrutinizer-ci.com/g/monsieurbiz/SyliusNoCommercePlugin/?branch=master)
 
 

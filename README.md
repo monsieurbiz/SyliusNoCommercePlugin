@@ -13,8 +13,8 @@
 <h1 align="center">No Commerce for Sylius</h1>
 
 [![No Commerce Plugin license](https://img.shields.io/github/license/monsieurbiz/SyliusNoCommercePlugin)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/blob/master/LICENSE.txt)
-[![Build Status](https://travis-ci.com/monsieurbiz/SyliusNoCommercePlugin.svg?branch=master)](https://travis-ci.com/monsieurbiz/SyliusNoCommercePlugin)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/monsieurbiz/SyliusNoCommercePlugin/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/monsieurbiz/SyliusNoCommercePlugin/?branch=master)
+[![Tests](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Tests/master?label=tests&logo=github)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/monsieurbiz/SyliusNoCommercePlugin/master?logo=scrutinizer)](https://scrutinizer-ci.com/g/monsieurbiz/SyliusNoCommercePlugin/?branch=master)
 
 
 This plugin disables the e-commerce parts of Sylius.  

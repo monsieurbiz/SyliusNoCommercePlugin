@@ -76,6 +76,13 @@ Copy the templates we override:
 cp -Rv vendor/monsieurbiz/sylius-no-commerce-plugin/src/Resources/templates/* templates/
 ```
 
+Create the new migrations, and run them:
+
+```
+./bin/console doctrine:migrations:diff
+./bin/console doctrine:migrations:migrate
+```
+
 ## Contributing
 
 You can open an issue or a Pull Request if you want! 😘  

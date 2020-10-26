@@ -1,0 +1,41 @@
+Sylius\Component\Core\Model\Channel:
+    constraints:
+        -   Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                fields: code
+                message: sylius.channel.code.unique
+                groups: [monsieurbiz_nocommerce]
+        -   Sylius\Bundle\CoreBundle\Validator\Constraints\ChannelDefaultLocaleEnabled:
+                groups: [monsieurbiz_nocommerce]
+        -   Sylius\Bundle\CoreBundle\Validator\Constraints\HasEnabledEntity:
+                groups: [monsieurbiz_nocommerce]
+    properties:
+        code:
+            -   NotBlank:
+                    message: sylius.channel.code.not_blank
+                    groups: [monsieurbiz_nocommerce]
+            -   Regex:
+                    message: sylius.channel.code.regex
+                    pattern: /^[\w-]*$/
+                    groups: [monsieurbiz_nocommerce]
+        name:
+            -   NotBlank:
+                    message: sylius.channel.name.not_blank
+                    groups: [monsieurbiz_nocommerce]
+        defaultLocale:
+            -   NotBlank:
+                    message: sylius.channel.default_locale.not_blank
+                    groups: [monsieurbiz_nocommerce]
+        taxCalculationStrategy:
+            -   NotBlank:
+                    groups: [monsieurbiz_nocommerce]
+        contactEmail:
+            -   Length:
+                    min: 2
+                    minMessage: sylius.channel.contact_email.min
+                    max: 254
+                    maxMessage: sylius.channel.contact_email.max
+                    groups: [monsieurbiz_nocommerce]
+            -   Email:
+                    message: sylius.channel.contact_email.invalid
+                    mode: strict
+                    groups: [monsieurbiz_nocommerce]

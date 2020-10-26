@@ -1,0 +1,7 @@
+sylius_grid:
+    grids:
+        sylius_admin_customer:
+            actions:
+                item:
+                    show_orders:
+                        enabled: false

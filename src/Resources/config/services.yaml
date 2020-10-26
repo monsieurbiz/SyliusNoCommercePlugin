@@ -1,0 +1,25 @@
+parameters:
+    sylius.form.type.channel.validation_groups: [monsieurbiz_nocommerce]
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    MonsieurBiz\SyliusNoCommercePlugin\Form\Extension\:
+        resource: '../../Form/Extension'
+        tags:
+            - { name: form.type_extension, priority: -10000 }
+
+    MonsieurBiz\SyliusNoCommercePlugin\Menu\AdminMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, priority: -10000 }
+
+    MonsieurBiz\SyliusNoCommercePlugin\Menu\AdminCustomerShowMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.customer.show, priority: -10000 }
+    
+    MonsieurBiz\SyliusNoCommercePlugin\Menu\ShopAccountMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.shop.account, priority: -10000 }

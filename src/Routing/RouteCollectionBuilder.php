@@ -22,8 +22,8 @@ use Symfony\Component\Routing\RouteCollectionBuilder as BaseRouteCollectionBuild
 
 class RouteCollectionBuilder extends BaseRouteCollectionBuilder
 {
-    private $loader;
-    private $resources = [];
+    private ?LoaderInterface $loader;
+    private array $resources = [];
 
     /**
      * RouteCollectionBuilder constructor.
@@ -54,10 +54,6 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
         $builder = $this->createBuilder();
 
         foreach ($collections as $collection) {
-            if (null === $collection) {
-                continue;
-            }
-
             foreach ($collection->all() as $name => $route) {
                 $toRemove = [
                     // Products
@@ -199,21 +195,6 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
     }
 
     /**
-     * Generates a route name based on details of this route.
-     */
-    private function generateRouteName(Route $route): string
-    {
-        $methods = implode('_', $route->getMethods()) . '_';
-
-        $routeName = $methods . $route->getPath();
-        $routeName = str_replace(['/', ':', '|', '-'], '_', $routeName);
-        $routeName = preg_replace('/[^a-z0-9A-Z_.]+/', '', $routeName);
-
-        // Collapse consecutive underscores down into a single underscore.
-        return preg_replace('/_+/', '_', $routeName);
-    }
-
-    /**
      * Finds a loader able to load an imported resource and loads it.
      *
      * @param mixed $resource A resource
@@ -235,10 +216,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
             return \is_array($collections) ? $collections : [$collections];
         }
 
-        if (null === $resolver = $this->loader->getResolver()) {
-            throw new LoaderLoadException($resource, null, null, null, $type);
-        }
-
+        $resolver = $this->loader->getResolver();
         if (false === $loader = $resolver->resolve($resource, $type)) {
             throw new LoaderLoadException($resource, null, null, null, $type);
         }

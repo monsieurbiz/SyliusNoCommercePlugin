@@ -24,6 +24,7 @@ final class AdminMenuListener
         $menu->removeChild('sales');
         $menu->removeChild('catalog');
         $menu->removeChild('marketing');
+        $menu->removeChild('customers');
 
         if (null !== $configuration = $menu->getChild('configuration')) {
             $configuration->removeChild('currencies');

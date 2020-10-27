@@ -31,21 +31,12 @@ sylius_ui:
 
         sylius.shop.homepage:
             blocks:
-                banner:
-                    template: "@SyliusShop/Homepage/_banner.html.twig"
-                    priority: 60
                 latest_products:
                     enabled: false
                 latest_products_carousel:
                     enabled: false
-                newsletter:
-                    template: "@SyliusShop/Homepage/_newsletter.html.twig"
-                    priority: 30
                 products_grid:
                     enabled: false
-                about_us:
-                    template: "@SyliusShop/Homepage/_aboutUs.html.twig"
-                    priority: 10
 
         sylius.admin.customer.show.content:
             blocks:
@@ -59,17 +50,7 @@ sylius_ui:
                 content:
                     enabled: false
 
-        sylius.admin.customer.show.header.content:
+        sylius.admin.layout.topbar_left:
             blocks:
-                content:
-                    template: "@SyliusAdmin/Customer/Show/_header.html.twig"
-                    priority: 20
-                legacy:
-                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
-                    priority: 15
-                    context:
-                        event: sylius.admin.customer.show.header
-                menu:
-#                    enabled: false
-                    template: "@SyliusAdmin/Customer/Show/_headerMenu.html.twig"
-                    priority: 10
+                search:
+                    enabled: false

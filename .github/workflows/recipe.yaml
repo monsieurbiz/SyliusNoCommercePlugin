@@ -30,6 +30,9 @@ jobs:
           echo "${{ matrix.php }}" > .php-version
           php -v
 
+      - name: Composer v1
+        run: sudo composer self-update --1
+
       - uses: actions/checkout@v2
         with:
           path: plugin

@@ -38,6 +38,9 @@ jobs:
           curl https://get.symfony.com/cli/installer | bash
           echo "${HOME}/.symfony/bin" >> $GITHUB_PATH
 
+      - name: Composer v1
+        run: sudo composer self-update --1
+
       - uses: actions/cache@v1
         id: cache-composer
         with:

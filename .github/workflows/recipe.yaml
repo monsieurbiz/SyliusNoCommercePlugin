@@ -64,7 +64,7 @@ jobs:
       - name: Install plugin
         working-directory: ./sylius
         run: |
-          composer config platform.php ${{ matrix.php }}
+          composer config --unset platform.php
           composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
           composer config extra.symfony.allow-contrib true
           composer config secure-http false

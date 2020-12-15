@@ -64,7 +64,7 @@ Add some annotations to your `src/Entity/Channel/Channel.php` entity to prevent 
 Use a different trait for your `src/Kernel.php`:
 
 ```diff
--     use SyliusKernelTrait;
+-     use MicroKernelTrait;
 +     use SyliusNoCommerceKernelTrait;
 ```
 

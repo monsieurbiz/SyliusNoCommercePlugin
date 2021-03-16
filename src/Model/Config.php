@@ -15,7 +15,7 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Model;
 
 final class Config implements ConfigInterface
 {
-    private $config = [];
+    private array $config = [];
 
     public function __construct(array $config)
     {

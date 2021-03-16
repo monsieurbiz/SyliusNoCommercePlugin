@@ -42,7 +42,13 @@ Then create the config file in `config/packages/monsieurbiz_sylius_nocommerce_pl
 ```yaml
 imports:
     - { resource: "@MonsieurBizSyliusNoCommercePlugin/Resources/config/config.yaml" }
+
+monsieurbiz_sylius_nocommerce:
+    config:
+        allow_customers: false
 ```
+
+You can allow customers by changing the `allow_customers` parameters to `true`.
 
 Add some annotations to your `src/Entity/Channel/Channel.php` entity to prevent error during Channel saving:
 

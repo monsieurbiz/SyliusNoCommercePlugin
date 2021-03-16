@@ -26,3 +26,7 @@ services:
     MonsieurBiz\SyliusNoCommercePlugin\Menu\ShopAccountMenuListener:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.shop.account, priority: -10000 }
+
+    MonsieurBiz\SyliusNoCommercePlugin\Model\Config:
+        arguments:
+            $config: '%monsieurbiz_sylius_nocommerce.config%'

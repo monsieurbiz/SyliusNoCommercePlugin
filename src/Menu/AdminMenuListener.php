@@ -13,10 +13,18 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\Menu;
 
+use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
 final class AdminMenuListener
 {
+    private ConfigInterface $config;
+
+    public function __construct(ConfigInterface $config)
+    {
+        $this->config = $config;
+    }
+
     public function __invoke(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
@@ -24,7 +32,10 @@ final class AdminMenuListener
         $menu->removeChild('sales');
         $menu->removeChild('catalog');
         $menu->removeChild('marketing');
-        $menu->removeChild('customers');
+
+        if (!$this->config->getAllowCustomers()) {
+            $menu->removeChild('customers');
+        }
 
         if (null !== $configuration = $menu->getChild('configuration')) {
             $configuration->removeChild('currencies');

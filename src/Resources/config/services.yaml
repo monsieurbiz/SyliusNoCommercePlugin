@@ -7,6 +7,9 @@ services:
         autoconfigure: true
         public: false
 
+    MonsieurBiz\SyliusNoCommercePlugin\:
+        resource: '../../*'
+
     MonsieurBiz\SyliusNoCommercePlugin\Form\Extension\:
         resource: '../../Form/Extension'
         tags:

@@ -33,7 +33,7 @@ final class AdminMenuListener
         $menu->removeChild('catalog');
         $menu->removeChild('marketing');
 
-        if (!$this->config->getAllowCustomers()) {
+        if (!$this->config->areCustomersAllowed()) {
             $menu->removeChild('customers');
         }
 

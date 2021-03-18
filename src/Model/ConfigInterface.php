@@ -20,5 +20,5 @@ interface ConfigInterface
      *
      * @return bool
      */
-    public function getAllowCustomers(): bool;
+    public function areCustomersAllowed(): bool;
 }

@@ -22,7 +22,7 @@ final class Config implements ConfigInterface
         $this->config = $config;
     }
 
-    public function getAllowCustomers(): bool
+    public function areCustomersAllowed(): bool
     {
         return (bool) $this->config['allow_customers'] ?: false;
     }

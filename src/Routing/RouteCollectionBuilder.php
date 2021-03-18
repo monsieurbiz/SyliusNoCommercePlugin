@@ -315,7 +315,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
     {
         $routesToRemove = [];
 
-        if ($this->config->getAllowCustomers()) {
+        if ($this->config->areCustomersAllowed()) {
             unset($this->routesToRemove['customer']);
         }
 

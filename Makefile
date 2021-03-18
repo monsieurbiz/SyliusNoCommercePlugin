@@ -6,7 +6,7 @@ COMPOSER=symfony composer
 CONSOLE=${SYMFONY} console
 export COMPOSE_PROJECT_NAME=no-commerce
 COMPOSE=docker-compose
-YARN=cd ${APP_DIR} && yarn
+YARN=yarn
 PHPSTAN=symfony php vendor/bin/phpstan
 PHPUNIT=symfony php vendor/bin/phpunit
 PHPSPEC=symfony php vendor/bin/phpspec
@@ -51,9 +51,8 @@ endif
 yarn.install: ${APP_DIR}/yarn.lock
 
 ${APP_DIR}/yarn.lock:
-	${YARN} install
 	ln -sf ${APP_DIR}/node_modules node_modules
-	${YARN} encore dev
+	cd ${APP_DIR} && ${YARN} install && ${YARN} build
 
 node_modules: ${APP_DIR}/node_modules ## Install the Node dependencies using yarn
 
@@ -62,6 +61,8 @@ ${APP_DIR}/node_modules: yarn.install
 ###
 ### TESTS
 ### ¯¯¯¯¯
+
+test.all: test.composer test.phpstan test.phpunit test.phpspec test.phpcs test.yaml test.schema test.twig ## Run all tests in once
 
 test.composer: ## Validate composer.json
 	${COMPOSER} validate --strict

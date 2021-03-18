@@ -23,6 +23,19 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        return new TreeBuilder('monsieurbiz_sylius_nocommerce');
+        $treeBuilder = new TreeBuilder('monsieurbiz_sylius_nocommerce');
+        $rootNode = $treeBuilder->getRootNode();
+
+        $rootNode
+            ->children()
+            // Config
+            ->arrayNode('config')
+                ->children()
+                    ->booleanNode('allow_customers')->isRequired()->end()
+                ->end()
+            ->end()
+        ;
+
+        return $treeBuilder;
     }
 }

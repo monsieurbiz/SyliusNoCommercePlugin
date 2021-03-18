@@ -36,7 +36,7 @@ final class Configuration implements ConfigurationInterface
             // Config
             ->arrayNode('config')
                 ->children()
-                    ->booleanNode('allow_customers')->isRequired()->defaultValue(false)->end()
+                    ->booleanNode('allow_customers')->isRequired()->end()
                 ->end()
             ->end()
         ;

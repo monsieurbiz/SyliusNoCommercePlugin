@@ -319,7 +319,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
             unset($this->routesToRemove['customer']);
         }
 
-        foreach ($this->routesToRemove as $type => $routes) {
+        foreach ($this->routesToRemove as $routes) {
             $routesToRemove = array_merge($routesToRemove, $routes);
         }
 

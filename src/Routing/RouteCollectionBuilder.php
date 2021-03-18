@@ -320,9 +320,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
         }
 
         foreach ($this->routesToRemove as $type => $routes) {
-            foreach ($routes as $route) {
-                $routesToRemove[] = $route;
-            }
+            $routesToRemove = array_merge($routesToRemove, $routes);
         }
 
         return $routesToRemove;

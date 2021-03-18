@@ -7,9 +7,6 @@ services:
         autoconfigure: true
         public: false
 
-    MonsieurBiz\SyliusNoCommercePlugin\:
-        resource: '../../*'
-
     MonsieurBiz\SyliusNoCommercePlugin\Form\Extension\:
         resource: '../../Form/Extension'
         tags:
@@ -27,6 +24,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.shop.account, priority: -10000 }
 
+    MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface: '@MonsieurBiz\SyliusNoCommercePlugin\Model\Config'
     MonsieurBiz\SyliusNoCommercePlugin\Model\Config:
         arguments:
-            $config: '%monsieurbiz_sylius_nocommerce.config%'
+            - '%monsieurbiz_sylius_nocommerce.config%'

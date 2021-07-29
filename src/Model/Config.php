@@ -22,8 +22,18 @@ final class Config implements ConfigInterface
         $this->config = $config;
     }
 
+    public function areCountriesAllowed(): bool
+    {
+        return (bool) $this->config['allow_countries'] ?: false;
+    }
+
     public function areCustomersAllowed(): bool
     {
         return (bool) $this->config['allow_customers'] ?: false;
+    }
+
+    public function areZonesAllowed(): bool
+    {
+        return (bool) $this->config['allow_zones'] ?: false;
     }
 }

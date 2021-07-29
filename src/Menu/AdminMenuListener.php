@@ -39,8 +39,13 @@ final class AdminMenuListener
 
         if (null !== $configuration = $menu->getChild('configuration')) {
             $configuration->removeChild('currencies');
-            $configuration->removeChild('countries');
-            $configuration->removeChild('zones');
+
+            if (!$this->config->areZonesAllowed() && !$this->config->areCountriesAllowed()) {
+                $configuration->removeChild('countries');
+            }
+            if (!$this->config->areZonesAllowed()) {
+                $configuration->removeChild('zones');
+            }
             $configuration->removeChild('exchange_rates');
             $configuration->removeChild('payment_methods');
             $configuration->removeChild('shipping_methods');

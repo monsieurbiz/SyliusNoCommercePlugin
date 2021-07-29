@@ -15,10 +15,7 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Model;
 
 interface ConfigInterface
 {
-    /**
-     * Return true if customers are allowed on the website.
-     *
-     * @return bool
-     */
+    public function areCountriesAllowed(): bool;
     public function areCustomersAllowed(): bool;
+    public function areZonesAllowed(): bool;
 }

@@ -319,6 +319,14 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
             unset($this->routesToRemove['customer']);
         }
 
+        if ($this->config->areZonesAllowed()) {
+            unset($this->routesToRemove['zone']);
+        }
+
+        if ($this->config->areZonesAllowed() || $this->config->areCountriesAllowed()) {
+            unset($this->routesToRemove['country']);
+        }
+
         foreach ($this->routesToRemove as $routes) {
             $routesToRemove = array_merge($routesToRemove, $routes);
         }

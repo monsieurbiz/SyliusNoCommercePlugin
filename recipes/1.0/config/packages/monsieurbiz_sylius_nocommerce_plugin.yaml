@@ -3,4 +3,6 @@ imports:
 
 monsieurbiz_sylius_nocommerce:
     config:
+        allow_countries: false
         allow_customers: false
+        allow_zones: false

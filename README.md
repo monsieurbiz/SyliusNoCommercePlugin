@@ -45,10 +45,12 @@ imports:
 
 monsieurbiz_sylius_nocommerce:
     config:
+        allow_countries: false
         allow_customers: false
+        allow_zones: false
 ```
 
-You can allow customers by changing the `allow_customers` parameters to `true`.
+You can allow different sections by changing the parameters to `true`.
 
 Add some annotations to your `src/Entity/Channel/Channel.php` entity to prevent error during Channel saving:
 

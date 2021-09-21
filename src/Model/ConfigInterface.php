@@ -16,6 +16,8 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Model;
 interface ConfigInterface
 {
     public function areCountriesAllowed(): bool;
+
     public function areCustomersAllowed(): bool;
+
     public function areZonesAllowed(): bool;
 }

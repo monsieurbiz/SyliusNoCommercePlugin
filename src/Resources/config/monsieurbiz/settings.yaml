@@ -1,0 +1,12 @@
+monsieurbiz_sylius_settings:
+    plugins:
+        monsieurbiz.nocommerce:
+            vendor_name: Monsieur Biz
+            vendor_url:
+            plugin_name: No Commerce
+            description: No Commerce configuration
+            icon: shopping bag
+            use_locales: true
+            classes:
+                form: MonsieurBiz\SyliusNoCommercePlugin\Form\Type\Settings\NoCommerceType
+                

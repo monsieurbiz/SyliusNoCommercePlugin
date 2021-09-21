@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace MonsieurBiz\SyliusNoCommercePlugin;
 
 use LogicException;
+use MonsieurBiz\SyliusNoCommercePlugin\DependencyInjection\FirewallRegistryPass;
 use MonsieurBiz\SyliusNoCommercePlugin\DependencyInjection\RemoveSyliusDataCollectorsPass;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
@@ -51,5 +52,6 @@ final class MonsieurBizSyliusNoCommercePlugin extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new RemoveSyliusDataCollectorsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 1);
+        $container->addCompilerPass(new FirewallRegistryPass());
     }
 }

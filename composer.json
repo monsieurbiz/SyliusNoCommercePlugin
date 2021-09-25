@@ -70,6 +70,7 @@
         },
         "branch-alias": {
             "dev-master": "1.0-dev"
-        }
+        },
+        "config-dir": "tests/Application/config"
     }
 }

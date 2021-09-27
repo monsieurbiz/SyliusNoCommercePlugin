@@ -62,7 +62,7 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
-        "phpcs": "php-cs-fixer fix --using-cache=false"
+        "phpcs": "php-cs-fixer fix --using-cache=no"
     },
     "extra": {
         "symfony": {

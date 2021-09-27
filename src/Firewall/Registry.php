@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\Firewall;
 
+use ArrayIterator;
 use Symfony\Bundle\SecurityBundle\Security\FirewallContext;
 
 class Registry implements RegistryInterface
@@ -29,6 +30,6 @@ class Registry implements RegistryInterface
 
     public function getIterator(): \Traversable
     {
-        return new \ArrayIterator($this->firewalls);
+        return new ArrayIterator($this->firewalls);
     }
 }

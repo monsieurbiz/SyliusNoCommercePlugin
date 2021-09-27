@@ -20,6 +20,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class ChannelTypeExtension extends AbstractTypeExtension
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameters)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\Menu;
 
+use Knp\Menu\ItemInterface;
 use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
@@ -38,20 +39,25 @@ final class AdminMenuListener
         }
 
         if (null !== $configuration = $menu->getChild('configuration')) {
-            $configuration->removeChild('currencies');
-
-            if (!$this->config->areZonesAllowed() && !$this->config->areCountriesAllowed()) {
-                $configuration->removeChild('countries');
-            }
-            if (!$this->config->areZonesAllowed()) {
-                $configuration->removeChild('zones');
-            }
-            $configuration->removeChild('exchange_rates');
-            $configuration->removeChild('payment_methods');
-            $configuration->removeChild('shipping_methods');
-            $configuration->removeChild('shipping_categories');
-            $configuration->removeChild('tax_categories');
-            $configuration->removeChild('tax_rates');
+            $this->removeConfigurationChildren($configuration);
         }
+    }
+
+    private function removeConfigurationChildren(ItemInterface $configuration): void
+    {
+        $configuration->removeChild('currencies');
+
+        if (!$this->config->areZonesAllowed() && !$this->config->areCountriesAllowed()) {
+            $configuration->removeChild('countries');
+        }
+        if (!$this->config->areZonesAllowed()) {
+            $configuration->removeChild('zones');
+        }
+        $configuration->removeChild('exchange_rates');
+        $configuration->removeChild('payment_methods');
+        $configuration->removeChild('shipping_methods');
+        $configuration->removeChild('shipping_categories');
+        $configuration->removeChild('tax_categories');
+        $configuration->removeChild('tax_rates');
     }
 }

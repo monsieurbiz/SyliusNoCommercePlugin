@@ -23,7 +23,7 @@ final class RemoveSyliusDataCollectorsPass implements CompilerPassInterface
         foreach ($container->getDefinitions() as $id => $definition) {
             if ($definition->hasTag('data_collector')) {
                 $tagDetails = current($definition->getTag('data_collector'));
-                if (isset($tagDetails['id']) && 'sylius_cart' === $tagDetails['id']) {
+                if ('sylius_cart' === ($tagDetails['id'] ?? '')) {
                     $container->removeDefinition($id);
                 }
             }

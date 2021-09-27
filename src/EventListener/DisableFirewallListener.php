@@ -41,12 +41,7 @@ final class DisableFirewallListener
 
     public function __invoke(RequestEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
-            return;
-        }
-        $request = $event->getRequest();
-        if (\in_array($request->attributes->get('_route'), self::PROFILER_ROUTES, true)) {
-            // allow profiler routes
+        if (!$this->canCheckRoute($event)) {
             return;
         }
 
@@ -60,6 +55,13 @@ final class DisableFirewallListener
         } catch (ChannelNotFoundException $exception) {
             // nothing to do without channel
         }
+    }
+
+    private function canCheckRoute(RequestEvent $event): bool
+    {
+        // allow profiler routes
+        return $event->isMasterRequest()
+            && !\in_array($event->getRequest()->attributes->get('_route'), self::PROFILER_ROUTES, true);
     }
 
     private function getFirewallContextName(Request $request): string

@@ -7,6 +7,9 @@ services:
         autoconfigure: true
         public: false
 
+    MonsieurBiz\SyliusNoCommercePlugin\:
+        resource: '../../'
+
     MonsieurBiz\SyliusNoCommercePlugin\Form\Extension\:
         resource: '../../Form/Extension'
         tags:
@@ -23,8 +26,15 @@ services:
     MonsieurBiz\SyliusNoCommercePlugin\Menu\ShopAccountMenuListener:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.shop.account, priority: -10000 }
+                
+    MonsieurBiz\SyliusNoCommercePlugin\EventListener\DisableFirewallListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: -10000 }
 
-    MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface: '@MonsieurBiz\SyliusNoCommercePlugin\Model\Config'
     MonsieurBiz\SyliusNoCommercePlugin\Model\Config:
         arguments:
             - '%monsieurbiz_sylius_nocommerce.config%'
+
+    Symfony\Bundle\SecurityBundle\Security\FirewallMap: '@security.firewall.map'
+
+    monsieurbiz.nocommerce.firewall.registry: '@MonsieurBiz\SyliusNoCommercePlugin\Firewall\Registry'

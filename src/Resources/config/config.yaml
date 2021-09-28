@@ -1,3 +1,4 @@
 imports:
   - { resource: "sylius/ui.yaml" }
   - { resource: "sylius/grid.yaml" }
+  - { resource: "monsieurbiz/settings.yaml" }

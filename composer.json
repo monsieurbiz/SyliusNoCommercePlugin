@@ -7,7 +7,8 @@
     "require": {
         "php": "~7.4",
         "sylius/sylius": "^1.8",
-        "phpstan/phpstan-webmozart-assert": "^0.12.7"
+        "phpstan/phpstan-webmozart-assert": "^0.12.7",
+        "monsieurbiz/sylius-settings-plugin": "^1.0.0"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",

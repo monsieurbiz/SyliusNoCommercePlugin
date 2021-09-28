@@ -1,0 +1,7 @@
+monsieurbiz:
+    nocommerce:
+        ui:
+            form:
+                field:
+                    disabled_firewall_contexts:
+                        label: Firewalls to be disabled

@@ -25,6 +25,9 @@
             "src/Entity/.gitignore"
         ]
     },
+    "babdev/pagerfanta-bundle": {
+        "version": "v2.11.0"
+    },
     "behat/behat": {
         "version": "v3.7.0"
     },
@@ -91,6 +94,9 @@
     "doctrine/dbal": {
         "version": "2.10.4"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "1.12",
         "recipe": {
@@ -146,6 +152,9 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.1"
+    },
     "egulias/email-validator": {
         "version": "2.1.20"
     },
@@ -157,6 +166,9 @@
     },
     "ergebnis/json-printer": {
         "version": "3.1.1"
+    },
+    "fakerphp/faker": {
+        "version": "v1.16.0"
     },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.1.1"
@@ -192,15 +204,15 @@
         "version": "v1.3.0"
     },
     "friendsofphp/php-cs-fixer": {
-        "version": "2.2",
+        "version": "3.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "2.2",
-            "ref": "cc05ab6abf6894bddb9bbd6a252459010ebe040b"
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
         },
         "files": [
-            ".php_cs.dist"
+            ".php-cs-fixer.dist.php"
         ]
     },
     "friendsofphp/proxy-manager-lts": {
@@ -257,9 +269,6 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
-    "jean85/pretty-package-versions": {
-        "version": "1.5.1"
-    },
     "jms/metadata": {
         "version": "1.7.0"
     },
@@ -298,6 +307,9 @@
     },
     "laminas/laminas-eventmanager": {
         "version": "3.3.0"
+    },
+    "laminas/laminas-stdlib": {
+        "version": "3.6.0"
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
@@ -409,15 +421,6 @@
     "netresearch/jsonmapper": {
         "version": "v2.1.0"
     },
-    "nette/finder": {
-        "version": "v2.5.2"
-    },
-    "nette/robot-loader": {
-        "version": "v3.3.1"
-    },
-    "nette/utils": {
-        "version": "v3.1.3"
-    },
     "nikic/php-parser": {
         "version": "v4.6.0"
     },
@@ -454,6 +457,9 @@
             "ref": "72ad834a0f4a99175beddb5e2d049136f4a50a67"
         }
     },
+    "pdepend/pdepend": {
+        "version": "2.10.0"
+    },
     "phar-io/manifest": {
         "version": "1.0.3"
     },
@@ -464,7 +470,7 @@
         "version": "7.4"
     },
     "php-cs-fixer/diff": {
-        "version": "v1.3.0"
+        "version": "v2.0.2"
     },
     "php-http/client-common": {
         "version": "2.3.0"
@@ -498,6 +504,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpmd/phpmd": {
+        "version": "2.10.2"
     },
     "phpoption/phpoption": {
         "version": "1.7.5"
@@ -582,9 +591,6 @@
     "psr/log": {
         "version": "1.1.3"
     },
-    "psr/simple-cache": {
-        "version": "1.0.1"
-    },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
@@ -660,9 +666,6 @@
             "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
         }
     },
-    "sspooky13/yaml-standards": {
-        "version": "5.1.2"
-    },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
         "recipe": {
@@ -687,6 +690,12 @@
     "sylius-labs/polyfill-symfony-event-dispatcher": {
         "version": "v1.0.0"
     },
+    "sylius-labs/polyfill-symfony-framework-bundle": {
+        "version": "v1.0.0"
+    },
+    "sylius-labs/polyfill-symfony-security": {
+        "version": "v1.0.0"
+    },
     "sylius/fixtures-bundle": {
         "version": "v1.6.1"
     },
@@ -707,6 +716,9 @@
     },
     "sylius/theme-bundle": {
         "version": "v1.5.1"
+    },
+    "symfony/amqp-messenger": {
+        "version": "v5.3.7"
     },
     "symfony/asset": {
         "version": "v4.4.13"
@@ -762,6 +774,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.4.13"
+    },
+    "symfony/doctrine-messenger": {
+        "version": "v5.3.8"
     },
     "symfony/dom-crawler": {
         "version": "v5.1.5"
@@ -873,6 +888,9 @@
     "symfony/options-resolver": {
         "version": "v4.4.13"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.8"
+    },
     "symfony/polyfill-ctype": {
         "version": "v1.18.1"
     },
@@ -897,9 +915,6 @@
     "symfony/polyfill-php56": {
         "version": "v1.18.1"
     },
-    "symfony/polyfill-php70": {
-        "version": "v1.18.1"
-    },
     "symfony/polyfill-php72": {
         "version": "v1.18.1"
     },
@@ -908,6 +923,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
+    },
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
     },
     "symfony/process": {
         "version": "v4.4.13"
@@ -920,6 +938,9 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v4.4.13"
+    },
+    "symfony/redis-messenger": {
+        "version": "v5.3.8"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -1060,38 +1081,8 @@
     "symfony/yaml": {
         "version": "v4.4.13"
     },
-    "symplify/auto-bind-parameter": {
-        "version": "8.3.11"
-    },
-    "symplify/autowire-array-parameter": {
-        "version": "8.3.11"
-    },
-    "symplify/coding-standard": {
-        "version": "v8.1.19"
-    },
-    "symplify/console-color-diff": {
-        "version": "8.3.11"
-    },
     "symplify/easy-coding-standard": {
         "version": "v8.1.19"
-    },
-    "symplify/package-builder": {
-        "version": "8.3.11"
-    },
-    "symplify/parameter-name-guard": {
-        "version": "v8.2.1"
-    },
-    "symplify/phpstan-extensions": {
-        "version": "v8.1.19"
-    },
-    "symplify/set-config-resolver": {
-        "version": "8.3.11"
-    },
-    "symplify/smart-file-system": {
-        "version": "8.3.11"
-    },
-    "symplify/symplify-kernel": {
-        "version": "8.3.36"
     },
     "textalk/websocket": {
         "version": "1.4.0"
@@ -1122,9 +1113,6 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
-    },
-    "webmozart/glob": {
-        "version": "4.1.0"
     },
     "webmozart/path-util": {
         "version": "2.3.0"

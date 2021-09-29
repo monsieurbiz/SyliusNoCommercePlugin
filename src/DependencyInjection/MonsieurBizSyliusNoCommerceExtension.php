@@ -27,9 +27,7 @@ final class MonsieurBizSyliusNoCommerceExtension extends Extension
     {
         $configuration = $this->getConfiguration([], $container);
         $config = $this->processConfiguration(/** @scrutinizer ignore-type */ $configuration, $config);
-        foreach ($config as $name => $value) {
-            $container->setParameter($this->getAlias() . '.' . $name, $value);
-        }
+        $container->setParameter($this->getAlias() . '.config', $config['config']);
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
     }

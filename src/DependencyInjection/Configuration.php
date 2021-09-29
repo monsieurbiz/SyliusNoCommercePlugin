@@ -30,6 +30,7 @@ final class Configuration implements ConfigurationInterface
             ->children()
             // Config
             ->arrayNode('config')
+                ->addDefaultsIfNotSet()
                 ->children()
                     ->booleanNode('allow_countries')->defaultFalse()->end()
                     ->booleanNode('allow_customers')->defaultFalse()->end()

@@ -1,0 +1,21 @@
+  * Add these annotations to your <info>src/Entity/Channel/Channel.php</info> entity to prevent errors during Channel saving:
+      /**
+       * @ORM\Entity
+       * @ORM\Table(name="sylius_channel")
+    <fg=green>+  * @ORM\AssociationOverrides({
+    +  *     @ORM\AssociationOverride(name="baseCurrency",
+    +  *         joinColumns=@ORM\JoinColumn(
+    +  *             name="base_currency_id", referencedColumnName="id", nullable=true
+    +  *         )
+    +  *     )
+    +  * })</>
+       */
+      class Channel extends BaseChannel
+
+  * Use a different trait for your <info>src/Kernel.php</info>:
+    <fg=red>-     use MicroKernelTrait;</>
+    <fg=green>+     use SyliusNoCommerceKernelTrait;</>
+    Don't forget the <comment>use MonsieurBiz\SyliusNoCommercePlugin\Kernel\SyliusNoCommerceKernelTrait;</comment> statement or course
+
+  * Create the new migrations, and run them:
+    <comment>./bin/console doctrine:migrations:migrate</comment>

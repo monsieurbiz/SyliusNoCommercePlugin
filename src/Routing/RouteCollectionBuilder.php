@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\Routing;
 
+use BadMethodCallException;
 use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
 use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -232,14 +233,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
         $routesToRemove = $this->getRoutesToRemove();
 
         foreach ($collections as $collection) {
-            foreach ($collection->all() as $name => $route) {
-                foreach ($routesToRemove as $routeToRemove) {
-                    if (false !== strpos($name, $routeToRemove)) {
-                        $route->setCondition('1 == 0');
-                    }
-                }
-                $builder->addRoute($route, $name);
-            }
+            $this->processDisableRouteOnRoutCollection($collection, $builder, $routesToRemove);
 
             foreach ($collection->getResources() as $routeResource) {
                 $builder->addResource($routeResource);
@@ -250,6 +244,21 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
         $this->mount($prefix, $builder);
 
         return $builder;
+    }
+
+    private function processDisableRouteOnRoutCollection(
+        RouteCollection $routeCollection,
+        self $builder,
+        array $routesToRemove
+    ): void {
+        foreach ($routeCollection->all() as $name => $route) {
+            foreach ($routesToRemove as $routeToRemove) {
+                if (false !== strpos($name, $routeToRemove)) {
+                    $route->setCondition('1 == 0');
+                }
+            }
+            $builder->addRoute($route, $name);
+        }
     }
 
     /**
@@ -265,13 +274,11 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
     /**
      * Adds a resource for this collection.
      *
-     * @return $this
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod) - False positive, this method is used in RouteCollectionBuilder::import method
      */
-    private function addResource(ResourceInterface $resource): self
+    private function addResource(ResourceInterface $resource): void
     {
         $this->resources[] = $resource;
-
-        return $this;
     }
 
     /**
@@ -283,11 +290,12 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
      * @throws LoaderLoadException If no loader is found
      *
      * @return RouteCollection[]
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     private function load($resource, string $type = null): array
     {
         if (null === $this->loader) {
-            throw new \BadMethodCallException('Cannot import other routing resources: you must pass a LoaderInterface when constructing RouteCollectionBuilder.');
+            throw new BadMethodCallException('Cannot import other routing resources: you must pass a LoaderInterface when constructing RouteCollectionBuilder.');
         }
 
         if ($this->loader->supports($resource, $type)) {
@@ -310,6 +318,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
      * Retrieve all routes to remove depending on config.
      *
      * @return array
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     private function getRoutesToRemove(): array
     {

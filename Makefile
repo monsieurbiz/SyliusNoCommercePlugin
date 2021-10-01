@@ -62,7 +62,7 @@ ${APP_DIR}/node_modules: yarn.install
 ### TESTS
 ### ¯¯¯¯¯
 
-test.all: test.composer test.phpstan test.phpunit test.phpspec test.phpcs test.yaml test.schema test.twig ## Run all tests in once
+test.all: test.composer test.phpstan test.phpunit test.phpspec test.phpcs test.phpmd test.yaml test.schema test.twig ## Run all tests in once
 
 test.composer: ## Validate composer.json
 	${COMPOSER} validate --strict
@@ -81,6 +81,9 @@ test.phpcs: ## Run PHP CS Fixer in dry-run
 
 test.phpcs.fix: ## Run PHP CS Fixer and fix issues if possible
 	${COMPOSER} run -- phpcs -v
+
+test.phpmd: ## Run PHPMD
+	${COMPOSER} run -- phpmd
 
 test.container: ## Lint the symfony container
 	${CONSOLE} lint:container

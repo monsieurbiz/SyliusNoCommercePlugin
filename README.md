@@ -21,11 +21,13 @@ Basically it disables the routes and updates the admin and frontend templates.
 ## Installation
 
 ```bash
-composer require monsieurbiz/sylius-no-commerce-plugin="1.0.x-dev" --no-scripts
+composer require monsieurbiz/sylius-no-commerce-plugin
 ```
 
-Change your `config/bundles.php` file to add the line for the plugin : 
+<details><summary>For the installation without flex, follow these additional steps</summary>
+<p>
 
+Change your `config/bundles.php` file to add this line for the plugin declaration:
 ```php
 <?php
 
@@ -35,20 +37,15 @@ return [
 ];
 ```
 
-Then create the config file in `config/packages/monsieurbiz_sylius_nocommerce_plugin.yaml` :
+Then create the config file in `config/packages/monsieurbiz_sylius_nocommerce_plugin.yaml`:
 
 ```yaml
 imports:
     - { resource: "@MonsieurBizSyliusNoCommercePlugin/Resources/config/config.yaml" }
-
-monsieurbiz_sylius_nocommerce:
-    config:
-        allow_countries: false
-        allow_customers: false
-        allow_zones: false
 ```
 
-You can allow different sections by changing the parameters to `true`.
+</p>
+</details>
 
 Add some annotations to your `src/Entity/Channel/Channel.php` entity to prevent error during Channel saving:
 
@@ -88,6 +85,21 @@ Create the new migrations, and run them:
 ./bin/console doctrine:migrations:diff
 ./bin/console doctrine:migrations:migrate
 ```
+
+## Re-enable features
+
+In the config file `config/packages/monsieurbiz_sylius_nocommerce_plugin.yaml`, add this lines:
+
+```yaml
+# ...
+monsieurbiz_sylius_nocommerce:
+    config:
+        allow_countries: false
+        allow_customers: false
+        allow_zones: false
+```
+
+You can allow different sections by changing the parameters to `true`.
 
 ## Contributing
 

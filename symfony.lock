@@ -269,6 +269,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jean85/pretty-package-versions": {
+        "version": "1.6.0"
+    },
     "jms/metadata": {
         "version": "1.7.0"
     },
@@ -420,6 +423,15 @@
     },
     "netresearch/jsonmapper": {
         "version": "v2.1.0"
+    },
+    "nette/finder": {
+        "version": "v2.5.2"
+    },
+    "nette/robot-loader": {
+        "version": "v3.4.1"
+    },
+    "nette/utils": {
+        "version": "v3.2.5"
     },
     "nikic/php-parser": {
         "version": "v4.6.0"
@@ -591,6 +603,9 @@
     "psr/log": {
         "version": "1.1.3"
     },
+    "psr/simple-cache": {
+        "version": "1.0.1"
+    },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
@@ -717,9 +732,6 @@
     "sylius/theme-bundle": {
         "version": "v1.5.1"
     },
-    "symfony/amqp-messenger": {
-        "version": "v5.3.7"
-    },
     "symfony/asset": {
         "version": "v4.4.13"
     },
@@ -774,9 +786,6 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.4.13"
-    },
-    "symfony/doctrine-messenger": {
-        "version": "v5.3.8"
     },
     "symfony/dom-crawler": {
         "version": "v5.1.5"
@@ -915,6 +924,9 @@
     "symfony/polyfill-php56": {
         "version": "v1.18.1"
     },
+    "symfony/polyfill-php70": {
+        "version": "v1.20.0"
+    },
     "symfony/polyfill-php72": {
         "version": "v1.18.1"
     },
@@ -938,9 +950,6 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v4.4.13"
-    },
-    "symfony/redis-messenger": {
-        "version": "v5.3.8"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -1081,8 +1090,29 @@
     "symfony/yaml": {
         "version": "v4.4.13"
     },
+    "symplify/autowire-array-parameter": {
+        "version": "8.3.48"
+    },
+    "symplify/coding-standard": {
+        "version": "8.3.48"
+    },
+    "symplify/console-color-diff": {
+        "version": "8.3.48"
+    },
     "symplify/easy-coding-standard": {
         "version": "v8.1.19"
+    },
+    "symplify/package-builder": {
+        "version": "8.3.48"
+    },
+    "symplify/set-config-resolver": {
+        "version": "8.3.48"
+    },
+    "symplify/smart-file-system": {
+        "version": "8.3.48"
+    },
+    "symplify/symplify-kernel": {
+        "version": "8.3.48"
     },
     "textalk/websocket": {
         "version": "1.4.0"
@@ -1113,6 +1143,9 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "webmozart/glob": {
+        "version": "4.4.0"
     },
     "webmozart/path-util": {
         "version": "2.3.0"

@@ -5,7 +5,7 @@
  *
  * (c) Monsieur Biz <sylius@monsieurbiz.com>
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -25,8 +25,6 @@ trait SyliusNoCommerceKernelTrait
     use MicroKernelTrait;
 
     /**
-     * @param LoaderInterface $loader
-     *
      * @return RouteCollection
      */
     public function loadRoutes(LoaderInterface $loader)
@@ -39,8 +37,6 @@ trait SyliusNoCommerceKernelTrait
 
     /**
      * Create a NoCommerce Config object.
-     *
-     * @return ConfigInterface
      */
     private function getConfig(): ConfigInterface
     {

@@ -5,7 +5,7 @@
  *
  * (c) Monsieur Biz <sylius@monsieurbiz.com>
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -24,7 +24,9 @@ use Symfony\Component\Routing\RouteCollectionBuilder as BaseRouteCollectionBuild
 class RouteCollectionBuilder extends BaseRouteCollectionBuilder
 {
     private ?LoaderInterface $loader;
+
     private ConfigInterface $config;
+
     private array $resources = [];
 
     private array $routesToRemove = [
@@ -204,8 +206,6 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
 
     /**
      * RouteCollectionBuilder constructor.
-     *
-     * @param LoaderInterface|null $loader
      */
     public function __construct(ConfigInterface $config, LoaderInterface $loader = null)
     {
@@ -317,7 +317,6 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
     /**
      * Retrieve all routes to remove depending on config.
      *
-     * @return array
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     private function getRoutesToRemove(): array

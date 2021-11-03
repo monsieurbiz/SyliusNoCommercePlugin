@@ -5,7 +5,7 @@
  *
  * (c) Monsieur Biz <sylius@monsieurbiz.com>
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -26,7 +26,9 @@ final class DisableFirewallListener
     private const PROFILER_ROUTES = ['_wdt', '_profiler', '_profiler_search', '_profiler_search_results'];
 
     private FirewallMap $firewallContext;
+
     private SettingsInterface $nocommerceSettings;
+
     private ChannelContextInterface $channelContext;
 
     public function __construct(

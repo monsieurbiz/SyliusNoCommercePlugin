@@ -1,13 +1,10 @@
 /vendor/
-/node_modules/
 /composer.lock
 
 /etc/build/*
 !/etc/build/.gitignore
 
-/tests/Application/yarn.lock
-/tests/Application/package-lock.json
-/tests/Application/.php-version
+/tests/Application
 
 /behat.yml
 /phpspec.yml
@@ -15,10 +12,7 @@
 /package-lock.json
 
 /.php-version
+/php.ini
 /.phpunit.result.cache
 /node_modules
-
-###> friendsofphp/php-cs-fixer ###
-/.php-cs-fixer.php
-/.php-cs-fixer.cache
-###< friendsofphp/php-cs-fixer ###
+/yarn.lock

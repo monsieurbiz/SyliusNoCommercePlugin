@@ -12,8 +12,9 @@
 
 <h1 align="center">No Commerce for Sylius</h1>
 
-[![No Commerce Plugin license](https://img.shields.io/github/license/monsieurbiz/SyliusNoCommercePlugin)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/blob/master/LICENSE.txt)
-![Tests](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Tests/master?label=tests&logo=github)
+[![No Commerce Plugin license](https://img.shields.io/github/license/monsieurbiz/SyliusNoCommercePlugin?public)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/blob/master/LICENSE.txt)
+[![Tests Status](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Tests?logo=github)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions?query=workflow%3ATests)
+[![Security Status](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Security?label=security&logo=github)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions?query=workflow%3ASecurity)
 
 This plugin disables the e-commerce parts of Sylius.  
 Basically it disables the routes and updates the admin and frontend templates.

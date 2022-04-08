@@ -2,3 +2,5 @@ suites:
     main:
         namespace: MonsieurBiz\SyliusNoCommercePlugin
         psr4_prefix: MonsieurBiz\SyliusNoCommercePlugin
+        src_path: src
+        spec_path: tests

@@ -4,8 +4,6 @@ on:
   push:
     branches: [ master ]
   pull_request:
-  schedule:
-    - cron:  '0 0 * * *'
 
 jobs:
 
@@ -19,19 +17,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.4]
+        php: ['7.4' ,'8.0']
+        sylius: ["~1.8.0", "~1.9.0", "~1.10.0"]
+        exclude:
+          - php: 8.0
+            sylius: "~1.8.0"
+          - php: 8.0
+            sylius: "~1.9.0"
 
     steps:
       - name: Setup PHP
         run: |
           sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
-          sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
-          echo "date.timezone=UTC" | sudo tee /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
-          echo "${{ matrix.php }}" > .php-version
-          php -v
-
-      - name: Composer v1
-        run: sudo composer self-update --1
+          echo "date.timezone=UTC" >> /tmp/timezone.ini
+          sudo mv /tmp/timezone.ini /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
+          echo ${{ matrix.php }} > .php-version
 
       - uses: actions/checkout@v2
         with:
@@ -44,31 +44,48 @@ jobs:
           docker run --rm --name flex -d -v $PWD/plugin/recipes:/var/www/flex/var/repo/private/monsieurbiz/sylius-no-commerce-plugin -p 80:80 docker.pkg.github.com/monsieurbiz/docker/symfony-flex-server:latest contrib official
           docker ps
 
+      - run: mkdir -p /home/runner/{.composer/cache,.config/composer}
+
       - uses: actions/cache@v1
         id: cache-composer
         with:
           path: /home/runner/.composer/cache
-          key: composer-php:${{ matrix.php }}-${{ github.sha }}
-          restore-keys: composer-php:${{ matrix.php }}-
+          key: composer2-php:${{ matrix.php }}-sylius:${{ matrix.sylius }}-${{ github.sha }}
+          restore-keys: composer2-php:${{ matrix.php }}-sylius:${{ matrix.sylius }}-
 
-      - run: mkdir -p /home/runner/.composer/cache
-        if: steps.cache-composer.outputs.cache-hit != 'true'
+      - name: Composer v2
+        run: sudo composer self-update --2
 
       - name: Composer Github Auth
         run: composer config -g github-oauth.github.com ${{ github.token }}
 
-      - name: Install Sylius-Standard
+      - name: Create Sylius-Standard project without install
         run: |
-          composer create-project --prefer-dist --no-scripts --no-progress sylius/sylius-standard sylius
+          composer create-project --prefer-dist --no-scripts --no-progress --no-install sylius/sylius-standard sylius "${{ matrix.sylius }}"
 
-      - name: Install plugin
+      # Because the sylius-standard has a soft constraint
+      - name: Make sure to install the required version of Sylius
         working-directory: ./sylius
         run: |
-          composer config --unset platform.php
-          composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
-          composer config extra.symfony.allow-contrib true
-          composer config secure-http false
-          composer require monsieurbiz/sylius-no-commerce-plugin="*@dev"
+            composer require --no-install --no-scripts --no-progress sylius/sylius="${{ matrix.sylius }}"
+
+      - name: Setup some requirements
+        working-directory: ./sylius
+        run: |
+            composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
+            composer config extra.symfony.allow-contrib true
+            composer config secure-http false
+            composer config --unset platform.php
+
+      - name: Require plugin without install
+        working-directory: ./sylius
+        run: |
+          composer require --no-install --no-update monsieurbiz/sylius-no-commerce-plugin="*@dev"
+
+      - name: Composer install
+        working-directory: ./sylius
+        run: |
+          composer install
 
       - name: Show flex server logs
         run: docker logs --tail 100 flex

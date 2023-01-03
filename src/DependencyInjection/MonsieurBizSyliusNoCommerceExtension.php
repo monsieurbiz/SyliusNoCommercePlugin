@@ -35,7 +35,7 @@ final class MonsieurBizSyliusNoCommerceExtension extends Extension
     /**
      * @inheritdoc
      */
-    public function getAlias()
+    public function getAlias(): string
     {
         return str_replace(['no_commerce', 'monsieur_biz'], ['nocommerce', 'monsieurbiz'], parent::getAlias());
     }

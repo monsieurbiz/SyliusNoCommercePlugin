@@ -15,6 +15,7 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Firewall;
 
 use ArrayIterator;
 use Symfony\Bundle\SecurityBundle\Security\FirewallContext;
+use Traversable;
 
 class Registry implements RegistryInterface
 {
@@ -28,7 +29,7 @@ class Registry implements RegistryInterface
         $this->firewalls[] = $firewall;
     }
 
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->firewalls);
     }

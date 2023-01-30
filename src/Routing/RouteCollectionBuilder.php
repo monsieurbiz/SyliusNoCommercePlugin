@@ -141,6 +141,11 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
             'api_pay',
         ],
 
+        // PayPal
+        'paypal' => [
+            'sylius_paypal',
+        ],
+
         // Taxes
         'tax' => [
             'sylius_admin_tax_',

@@ -215,7 +215,7 @@ $config
         'phpdoc_order' => true,
         'phpdoc_return_self_reference' => true,
         'phpdoc_scalar' => true,
-        'phpdoc_separation' => true,
+        'phpdoc_separation' => ['groups' => [['ORM\\*'], ['Assert\\*']]],
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_tag_type' => true,
         'phpdoc_to_comment' => false,

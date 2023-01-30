@@ -11,50 +11,42 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      SYMFONY_ENDPOINT: http://127.0.0.1/
-
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4' ,'8.0']
-        sylius: ["~1.8.0", "~1.9.0", "~1.10.0"]
+        php: ['7.4', '8.0']
+        sylius: ['~1.8.0', '~1.9.0', '~1.10.0', '~1.11.0']
         exclude:
-          - php: 8.0
-            sylius: "~1.8.0"
-          - php: 8.0
-            sylius: "~1.9.0"
+          - php: '8.0'
+            sylius: '~1.8.0'
+          - php: '8.0'
+            sylius: '~1.9.0'
+          - php: '7.4'
+            sylius: '~1.11.0'
 
     steps:
       - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: date.timezone=UTC
+          
+      - name: Set project php-version
         run: |
-          sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
-          echo "date.timezone=UTC" >> /tmp/timezone.ini
-          sudo mv /tmp/timezone.ini /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
           echo ${{ matrix.php }} > .php-version
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: plugin
 
-      # Run the server at the start so it can download the recipes!
-      - name: Run standalone symfony flex server
-        run: |
-          echo ${{ github.token }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-          docker run --rm --name flex -d -v $PWD/plugin/recipes:/var/www/flex/var/repo/private/monsieurbiz/sylius-no-commerce-plugin -p 80:80 docker.pkg.github.com/monsieurbiz/docker/symfony-flex-server:latest contrib official
-          docker ps
-
       - run: mkdir -p /home/runner/{.composer/cache,.config/composer}
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         id: cache-composer
         with:
           path: /home/runner/.composer/cache
           key: composer2-php:${{ matrix.php }}-sylius:${{ matrix.sylius }}-${{ github.sha }}
           restore-keys: composer2-php:${{ matrix.php }}-sylius:${{ matrix.sylius }}-
-
-      - name: Composer v2
-        run: sudo composer self-update --2
 
       - name: Composer Github Auth
         run: composer config -g github-oauth.github.com ${{ github.token }}
@@ -72,20 +64,15 @@ jobs:
       - name: Setup some requirements
         working-directory: ./sylius
         run: |
+            composer config --no-plugins allow-plugins true
+            composer config --no-plugins extra.symfony.allow-contrib true
+            composer config --no-plugins secure-http false
+            composer config --no-plugins --unset platform.php
+            composer config --no-plugins extra.symfony.docker false
+            composer config --no-plugins --json extra.symfony.endpoint '["https://api.github.com/repos/monsieurbiz/symfony-recipes/contents/index.json?ref=flex/master","flex://defaults"]'
             composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
-            composer config extra.symfony.allow-contrib true
-            composer config secure-http false
-            composer config --unset platform.php
 
-      - name: Require plugin without install
+      - name: Require plugin & install all
         working-directory: ./sylius
         run: |
-          composer require --no-install --no-update monsieurbiz/sylius-no-commerce-plugin="*@dev"
-
-      - name: Composer install
-        working-directory: ./sylius
-        run: |
-          composer install
-
-      - name: Show flex server logs
-        run: docker logs --tail 100 flex
+          composer require monsieurbiz/sylius-no-commerce-plugin="*@dev"

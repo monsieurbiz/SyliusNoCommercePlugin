@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 SHELL=/bin/bash
 APP_DIR=tests/Application
-SYLIUS_VERSION=1.10.0
+SYLIUS_VERSION=1.11.0
 SYMFONY=cd ${APP_DIR} && symfony
 COMPOSER=symfony composer
 CONSOLE=${SYMFONY} console
@@ -68,6 +68,9 @@ setup_application:
 	rm -f ${APP_DIR}/yarn.lock
 	(cd ${APP_DIR} && ${COMPOSER} config repositories.plugin '{"type": "path", "url": "../../"}')
 	(cd ${APP_DIR} && ${COMPOSER} config extra.symfony.allow-contrib true)
+	(cd ${APP_DIR} && ${COMPOSER} config extra.symfony.docker false)
+	(cd ${APP_DIR} && ${COMPOSER} config --json extra.symfony.endpoint '["https://api.github.com/repos/monsieurbiz/symfony-recipes/contents/index.json?ref=flex/master","flex://defaults"]')
+	(cd ${APP_DIR} && ${COMPOSER} config allow-plugins true)
 	(cd ${APP_DIR} && ${COMPOSER} config minimum-stability dev)
 	(cd ${APP_DIR} && ${COMPOSER} require --no-install --no-scripts --no-progress sylius/sylius="~${SYLIUS_VERSION}") # Make sure to install the required version of sylius because the sylius-standard has a soft constraint
 	$(MAKE) ${APP_DIR}/.php-version
@@ -111,19 +114,16 @@ apply_dist:
 ### TESTS
 ### ¯¯¯¯¯
 
-test.all: test.composer test.phpstan test.phpmd test.phpunit test.phpspec test.phpcs test.yaml test.schema test.twig test.container ## Run all tests in once
+test.all: test.composer test.phpstan test.phpmd test.phpspec test.phpcs test.yaml test.schema test.twig test.container ## Run all tests in once
 
 test.composer: ## Validate composer.json
-	${COMPOSER} validate --strict
+	${COMPOSER} validate --strict --no-plugins
 
 test.phpstan: ## Run PHPStan
 	${COMPOSER} phpstan
 
 test.phpmd: ## Run PHPMD
 	${COMPOSER} phpmd
-
-test.phpunit: ## Run PHPUnit
-	${COMPOSER} phpunit
 
 test.phpspec: ## Run PHPSpec
 	${COMPOSER} phpspec

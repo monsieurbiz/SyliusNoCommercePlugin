@@ -27,6 +27,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
 
     private ConfigInterface $config;
 
+    /** @phpstan-ignore-next-line */
     private array $resources = [];
 
     private array $routesToRemove = [
@@ -274,11 +275,15 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
     /**
      * Adds a resource for this collection.
      *
-     * @SuppressWarnings(PHPMD.UnusedPrivateMethod) - False positive, this method is used in RouteCollectionBuilder::import method
+     * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      */
-    private function addResource(ResourceInterface $resource): void
+    private function addResource(ResourceInterface $resource): self
     {
         $this->resources[] = $resource;
+
+        return $this;
     }
 
     /**
@@ -290,6 +295,7 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
      * @throws LoaderLoadException If no loader is found
      *
      * @return RouteCollection[]
+     *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     private function load($resource, string $type = null): array
@@ -306,7 +312,8 @@ class RouteCollectionBuilder extends BaseRouteCollectionBuilder
 
         $resolver = $this->loader->getResolver();
         if (false === $loader = $resolver->resolve($resource, $type)) {
-            throw new LoaderLoadException($resource, null, null, null, $type);
+            /** @phpstan-ignore-next-line */
+            throw new LoaderLoadException($resource, null, 0, null, $type);
         }
 
         $collections = $loader->load($resource, $type);

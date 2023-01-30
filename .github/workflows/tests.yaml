@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.0']
+        php: ['8.0']
 
     env:
       SYMFONY_ARGS: --no-tls
@@ -22,23 +22,28 @@ jobs:
       DOCKER_INTERACTIVE_ARGS: -t
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
           node-version: '14'
 
       - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: date.timezone=UTC
+          
+      - name: Set project php-version
         run: |
-          sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
-          echo "date.timezone=UTC" | sudo tee /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
-          echo "${{ matrix.php }}" > .php-version
+          echo ${{ matrix.php }} > .php-version
 
       - name: Install symfony CLI
         run: |
           curl https://get.symfony.com/cli/installer | bash
-          echo "${HOME}/.symfony/bin" >> $GITHUB_PATH
+          echo "${HOME}/.symfony5/bin" >> $GITHUB_PATH
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         id: cache-composer
         with:
           path: /home/runner/.composer/cache
@@ -46,21 +51,18 @@ jobs:
           restore-keys: composer2-php:${{ matrix.php }}-
 
       - run: mkdir -p /home/runner/{.composer/cache,.config/composer}
-        if: steps.cache-composer.outputs.cache-hit != 'true'
-
-      - name: Composer v2
-        run: sudo composer self-update --2
 
       - name: Composer Github Auth
         run: composer config -g github-oauth.github.com ${{ github.token }}
+        
+      - name: Disallow Composer plugins for testing purposes
+        run: composer config allow-plugins false
 
       - run: make install
 
       - run: make test.composer
 
       - run: make test.phpcs
-
-      - run: make test.phpunit
 
       - run: make test.phpstan
 

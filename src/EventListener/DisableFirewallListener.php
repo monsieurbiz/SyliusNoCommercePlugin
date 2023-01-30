@@ -41,6 +41,9 @@ final class DisableFirewallListener
         $this->channelContext = $channelContext;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function __invoke(RequestEvent $event): void
     {
         if (!$this->canCheckRoute($event)) {
@@ -49,7 +52,7 @@ final class DisableFirewallListener
 
         try {
             $currentChannel = $this->channelContext->getChannel();
-            $disabledFirewall = $this->nocommerceSettings->getCurrentValue($currentChannel, null, 'disabled_firewall_contexts') ?? [];
+            $disabledFirewall = (array) ($this->nocommerceSettings->getCurrentValue($currentChannel, null, 'disabled_firewall_contexts') ?: []);
             $firewallContextName = $this->getFirewallContextName($event->getRequest());
             if (\in_array($firewallContextName, $disabledFirewall, true)) {
                 throw new NotFoundHttpException('Route not found');
@@ -62,7 +65,7 @@ final class DisableFirewallListener
     private function canCheckRoute(RequestEvent $event): bool
     {
         // allow profiler routes
-        return $event->isMasterRequest()
+        return $event->isMainRequest()
             && !\in_array($event->getRequest()->attributes->get('_route'), self::PROFILER_ROUTES, true);
     }
 

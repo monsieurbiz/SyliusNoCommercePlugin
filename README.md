@@ -13,8 +13,9 @@
 <h1 align="center">No Commerce for Sylius</h1>
 
 [![No Commerce Plugin license](https://img.shields.io/github/license/monsieurbiz/SyliusNoCommercePlugin?public)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/blob/master/LICENSE.txt)
-[![Tests Status](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Tests?logo=github)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions?query=workflow%3ATests)
-[![Security Status](https://img.shields.io/github/workflow/status/monsieurbiz/SyliusNoCommercePlugin/Security?label=security&logo=github)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions?query=workflow%3ASecurity)
+[![Security](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/security.yaml/badge.svg)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/security.yaml)
+[![Tests](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/tests.yaml/badge.svg)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/tests.yaml)
+[![Flex Recipe](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/recipe.yaml/badge.svg)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/recipe.yaml)
 
 This plugin disables the e-commerce parts of Sylius.  
 Basically it disables the routes and updates the admin and frontend templates.

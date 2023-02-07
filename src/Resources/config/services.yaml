@@ -38,3 +38,6 @@ services:
     Symfony\Bundle\SecurityBundle\Security\FirewallMap: '@security.firewall.map'
 
     monsieurbiz.nocommerce.firewall.registry: '@MonsieurBiz\SyliusNoCommercePlugin\Firewall\Registry'
+
+    MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext:
+        decorates: sylius.context.currency.channel_aware

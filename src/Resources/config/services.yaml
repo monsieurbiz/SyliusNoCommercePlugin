@@ -39,5 +39,14 @@ services:
 
     monsieurbiz.nocommerce.firewall.registry: '@MonsieurBiz\SyliusNoCommercePlugin\Firewall\Registry'
 
+    MonsieurBiz\SyliusNoCommercePlugin\Collector\NoCommerceSyliusCollector:
+        autowire: false
+        arguments:
+            - '@sylius.context.shopper'
+            - '%kernel.bundles%'
+            - '%locale%'
+        tags:
+            - { name: data_collector, template: '@SyliusCore/Collector/sylius.html.twig', id: sylius_core, priority: -512 }
+
     MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext:
         decorates: sylius.context.currency.channel_aware

@@ -45,6 +45,7 @@ services:
             - '@sylius.context.shopper'
             - '%kernel.bundles%'
             - '%locale%'
+            - '@monsieurbiz.no_commerce.provider.features_provider'
         tags:
             - { name: data_collector, template: '@SyliusCore/Collector/sylius.html.twig', id: sylius_core, priority: -512 }
 

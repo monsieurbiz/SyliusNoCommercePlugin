@@ -15,8 +15,11 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Form\Type\Settings;
 
 use MonsieurBiz\SyliusNoCommercePlugin\Firewall\RegistryInterface;
 use MonsieurBiz\SyliusSettingsPlugin\Form\AbstractSettingsType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 class NoCommerceType extends AbstractSettingsType
 {
@@ -46,6 +49,10 @@ class NoCommerceType extends AbstractSettingsType
             $choices[$firewallName] = $firewallConfig->getContext() ?? $firewallName;
         }
 
+        $this->addWithDefaultCheckbox($builder, 'enabled', CheckboxType::class, [
+            'label' => 'monsieurbiz.nocommerce.ui.form.field.enabled.label',
+            'required' => false,
+        ]);
         $this->addWithDefaultCheckbox($builder, 'disabled_firewall_contexts', ChoiceType::class, [
             'label' => 'monsieurbiz.nocommerce.ui.form.field.disabled_firewall_contexts.label',
             'required' => false,

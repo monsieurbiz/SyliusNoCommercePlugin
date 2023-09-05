@@ -15,20 +15,31 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Menu;
 
 use Knp\Menu\ItemInterface;
 use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
+use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
 final class AdminMenuListener
 {
     private ConfigInterface $config;
 
-    public function __construct(ConfigInterface $config)
+    private FeaturesProviderInterface $featuresProvider;
+
+    public function __construct(
+        ConfigInterface $config,
+        FeaturesProviderInterface $featuresProvider
+    )
     {
         $this->config = $config;
+        $this->featuresProvider = $featuresProvider;
     }
 
     public function __invoke(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
+
+        if (!$this->featuresProvider->isNoCommerceEnabledForChannel()) {
+            return;
+        }
 
         $menu->removeChild('sales');
         $menu->removeChild('catalog');

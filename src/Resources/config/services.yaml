@@ -50,3 +50,7 @@ services:
 
     MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext:
         decorates: sylius.context.currency.channel_aware
+
+    monsieurbiz.no_commerce.provider.features_provider: 
+        class: 'MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProvider'
+        public: true

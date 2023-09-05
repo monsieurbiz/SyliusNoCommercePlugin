@@ -9,4 +9,5 @@ monsieurbiz_sylius_settings:
             use_locales: true
             classes:
                 form: MonsieurBiz\SyliusNoCommercePlugin\Form\Type\Settings\NoCommerceType
-                
+            default_values:
+                enabled: true

@@ -15,6 +15,7 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Kernel;
 
 use MonsieurBiz\SyliusNoCommercePlugin\Model\Config;
 use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
+use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Routing\RouteCollection;
@@ -24,6 +25,8 @@ trait SyliusNoCommerceKernelTrait
     use MicroKernelTrait {
         MicroKernelTrait::loadRoutes as parentLoadRoutes;
     }
+
+    private FeaturesProviderInterface $featuresProvider;
 
     private array $routesToRemove = [
         // Customers & Account & Users
@@ -208,6 +211,12 @@ trait SyliusNoCommerceKernelTrait
     public function loadRoutes(LoaderInterface $loader): RouteCollection
     {
         $collection = $this->parentLoadRoutes($loader);
+
+        $this->setFeatureProvider($this->container->get('monsieurbiz.no_commerce.provider.features_provider'));
+        if (!$this->featuresProvider->isNoCommerceEnabledForChannel()) {
+            return $collection;
+        }
+
         $routesToRemove = $this->getRoutesToRemove();
         foreach ($collection as $name => $route) {
             foreach ($routesToRemove as $routeToRemove) {
@@ -218,6 +227,11 @@ trait SyliusNoCommerceKernelTrait
         }
 
         return $collection;
+    }
+
+    private function setFeatureProvider(FeaturesProviderInterface $featuresProvider)
+    {
+        $this->featuresProvider = $featuresProvider;
     }
 
     /**

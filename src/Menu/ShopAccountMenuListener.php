@@ -22,8 +22,7 @@ final class ShopAccountMenuListener
 
     public function __construct(
         FeaturesProviderInterface $featuresProvider
-    )
-    {
+    ) {
         $this->featuresProvider = $featuresProvider;
     }
 

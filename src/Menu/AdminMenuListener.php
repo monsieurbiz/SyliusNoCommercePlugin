@@ -27,8 +27,7 @@ final class AdminMenuListener
     public function __construct(
         ConfigInterface $config,
         FeaturesProviderInterface $featuresProvider
-    )
-    {
+    ) {
         $this->config = $config;
         $this->featuresProvider = $featuresProvider;
     }

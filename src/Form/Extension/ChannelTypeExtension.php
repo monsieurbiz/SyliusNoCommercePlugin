@@ -28,8 +28,7 @@ final class ChannelTypeExtension extends AbstractTypeExtension
 
     public function __construct(
         FeaturesProviderInterface $featuresProvider
-    )
-    {
+    ) {
         $this->featuresProvider = $featuresProvider;
     }
 

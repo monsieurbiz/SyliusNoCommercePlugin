@@ -208,6 +208,9 @@ trait SyliusNoCommerceKernelTrait
         ],
     ];
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function loadRoutes(LoaderInterface $loader): RouteCollection
     {
         $collection = $this->parentLoadRoutes($loader);
@@ -220,7 +223,7 @@ trait SyliusNoCommerceKernelTrait
         $routesToRemove = $this->getRoutesToRemove();
         foreach ($collection as $name => $route) {
             foreach ($routesToRemove as $routeToRemove) {
-                if (false !== strpos($name, $routeToRemove)) {
+                if (str_contains($name, $routeToRemove)) {
                     $route->setCondition('1 == 0');
                 }
             }
@@ -229,7 +232,7 @@ trait SyliusNoCommerceKernelTrait
         return $collection;
     }
 
-    private function setFeatureProvider(FeaturesProviderInterface $featuresProvider)
+    private function setFeatureProvider(FeaturesProviderInterface $featuresProvider): void
     {
         $this->featuresProvider = $featuresProvider;
     }

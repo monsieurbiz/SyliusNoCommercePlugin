@@ -1,11 +1,11 @@
 <?php
 
 /*
- * This file is part of SyliusNoCommercePlugin corporate website.
+ * This file is part of Monsieur Biz' No Commerce plugin for Sylius.
  *
- * (c) SyliusNoCommercePlugin <sylius+syliusnocommerceplugin@monsieurbiz.com>
+ * (c) Monsieur Biz <sylius@monsieurbiz.com>
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -17,5 +17,5 @@ use Sylius\Component\Core\Model\ChannelInterface;
 
 interface FeaturesProviderInterface
 {
-    public  function isNoCommerceEnabledForChannel(?ChannelInterface $channel = null): bool;
+    public function isNoCommerceEnabledForChannel(ChannelInterface $channel = null): bool;
 }

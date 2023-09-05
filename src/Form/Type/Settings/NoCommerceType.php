@@ -18,8 +18,6 @@ use MonsieurBiz\SyliusSettingsPlugin\Form\AbstractSettingsType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 
 class NoCommerceType extends AbstractSettingsType
 {

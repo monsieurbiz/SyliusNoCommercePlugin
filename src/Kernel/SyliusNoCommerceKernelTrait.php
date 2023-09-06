@@ -205,14 +205,18 @@ trait SyliusNoCommerceKernelTrait
         ],
     ];
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function loadRoutes(LoaderInterface $loader): RouteCollection
     {
         $collection = $this->parentLoadRoutes($loader);
+
         $routesToRemove = $this->getRoutesToRemove();
         foreach ($collection as $name => $route) {
             foreach ($routesToRemove as $routeToRemove) {
                 if (false !== strpos($name, $routeToRemove)) {
-                    $route->setCondition('1 == 0');
+                    $route->setCondition("not(context.getPathInfo() matches '`^%sylius.security.new_api_route%`') and not context.checkNoCommerce()");
                 }
             }
         }

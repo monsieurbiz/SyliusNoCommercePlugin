@@ -45,8 +45,29 @@ services:
             - '@sylius.context.shopper'
             - '%kernel.bundles%'
             - '%locale%'
+            - '@monsieurbiz.no_commerce.provider.features_provider'
         tags:
             - { name: data_collector, template: '@SyliusCore/Collector/sylius.html.twig', id: sylius_core, priority: -512 }
 
     MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext:
         decorates: sylius.context.currency.channel_aware
+        arguments:
+            - '@MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext.inner'
+            - '@monsieurbiz.no_commerce.provider.features_provider'
+    
+    MonsieurBiz\SyliusNoCommercePlugin\Registry\TemplateBlockRegistryDecorator:
+        decorates: 'Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface'
+        arguments:
+            $templateBlockRegistry: '@MonsieurBiz\SyliusNoCommercePlugin\Registry\TemplateBlockRegistryDecorator.inner'
+            $featuresProvider: '@monsieurbiz.no_commerce.provider.features_provider'
+
+    monsieurbiz.no_commerce.provider.features_provider: 
+        class: 'MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProvider'
+        public: true
+        
+    # Routing Context
+    MonsieurBiz\SyliusNoCommercePlugin\Routing\NoCommerceRequestContext:
+        decorates: router.request_context
+        arguments:
+            - '@MonsieurBiz\SyliusNoCommercePlugin\Routing\NoCommerceRequestContext.inner'
+            - '@monsieurbiz.no_commerce.provider.features_provider'

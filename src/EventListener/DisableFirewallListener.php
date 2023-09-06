@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\EventListener;
 
+use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use MonsieurBiz\SyliusSettingsPlugin\Settings\SettingsInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Channel\Context\ChannelNotFoundException;
@@ -31,14 +32,18 @@ final class DisableFirewallListener
 
     private ChannelContextInterface $channelContext;
 
+    private FeaturesProviderInterface $featuresProvider;
+
     public function __construct(
         FirewallMap $firewallContext,
         SettingsInterface $nocommerceSettings,
-        ChannelContextInterface $channelContext
+        ChannelContextInterface $channelContext,
+        FeaturesProviderInterface $featuresProvider
     ) {
         $this->firewallContext = $firewallContext;
         $this->nocommerceSettings = $nocommerceSettings;
         $this->channelContext = $channelContext;
+        $this->featuresProvider = $featuresProvider;
     }
 
     /**
@@ -47,6 +52,10 @@ final class DisableFirewallListener
     public function __invoke(RequestEvent $event): void
     {
         if (!$this->canCheckRoute($event)) {
+            return;
+        }
+
+        if (!$this->featuresProvider->isNoCommerceEnabledForChannel()) {
             return;
         }
 

@@ -6,7 +6,8 @@ monsieurbiz_sylius_settings:
             plugin_name: No Commerce
             description: No Commerce configuration
             icon: shopping bag
-            use_locales: true
+            use_locales: false
             classes:
                 form: MonsieurBiz\SyliusNoCommercePlugin\Form\Type\Settings\NoCommerceType
-                
+            default_values:
+                enabled: true

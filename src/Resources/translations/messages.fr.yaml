@@ -5,3 +5,5 @@ monsieurbiz:
                 field:
                     disabled_firewall_contexts:
                         label: Firewalls à désactiver
+                    enabled:
+                        label: Activer

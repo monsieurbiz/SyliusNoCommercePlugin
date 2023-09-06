@@ -13,12 +13,25 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\Menu;
 
+use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
 final class AdminCustomerShowMenuListener
 {
+    private FeaturesProviderInterface $featuresProvider;
+
+    public function __construct(
+        FeaturesProviderInterface $featuresProvider
+    ) {
+        $this->featuresProvider = $featuresProvider;
+    }
+
     public function __invoke(MenuBuilderEvent $event): void
     {
+        if (!$this->featuresProvider->isNoCommerceEnabledForChannel()) {
+            return;
+        }
+
         $menu = $event->getMenu();
         $menu->removeChild('order_index');
     }

@@ -55,7 +55,7 @@ services:
     MonsieurBiz\SyliusNoCommercePlugin\Registry\TemplateBlockRegistryDecorator:
         decorates: 'Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface'
         arguments:
-            $templateBlockRegistry: '@.inner'
+            $templateBlockRegistry: '@MonsieurBiz\SyliusNoCommercePlugin\Registry\TemplateBlockRegistryDecorator.inner'
             $featuresProvider: '@monsieurbiz.no_commerce.provider.features_provider'
 
     monsieurbiz.no_commerce.provider.features_provider: 

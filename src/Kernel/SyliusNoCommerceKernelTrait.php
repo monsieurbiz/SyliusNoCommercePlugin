@@ -223,7 +223,7 @@ trait SyliusNoCommerceKernelTrait
         $routesToRemove = $this->getRoutesToRemove();
         foreach ($collection as $name => $route) {
             foreach ($routesToRemove as $routeToRemove) {
-                if (str_contains($name, $routeToRemove)) {
+                if (false !== strpos($name, $routeToRemove)) {
                     $route->setCondition('1 == 0');
                 }
             }

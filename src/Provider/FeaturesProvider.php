@@ -38,9 +38,9 @@ final class FeaturesProvider implements FeaturesProviderInterface
             if (null === $channel) {
                 $channel = $this->channelContext->getChannel();
             }
-            // In case we are getting a channel that does not exists yet we pass null as the channel to retrieve the setting value of the global scope
+            // In case we are getting a channel that does not exists yet we return null to have the channel set properly
             if (null === $channel->getId()) {
-                $channel = null;
+                return true;
             }
         } catch (Exception $exception) {
             return false;

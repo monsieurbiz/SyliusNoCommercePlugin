@@ -51,7 +51,10 @@ services:
 
     MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext:
         decorates: sylius.context.currency.channel_aware
-        
+        arguments:
+            - '@MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext.inner'
+            - '@monsieurbiz.no_commerce.provider.features_provider'
+    
     MonsieurBiz\SyliusNoCommercePlugin\Registry\TemplateBlockRegistryDecorator:
         decorates: 'Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface'
         arguments:

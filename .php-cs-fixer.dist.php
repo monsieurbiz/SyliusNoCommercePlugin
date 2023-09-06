@@ -116,6 +116,7 @@ $config
         'lowercase_static_reference' => true,
         'magic_constant_casing' => true,
         'method_argument_space' => true,
+        'modernize_strpos' => false,
         'modernize_types_casting' => true,
         'multiline_comment_opening_closing' => true,
         'multiline_whitespace_before_semicolons' => [

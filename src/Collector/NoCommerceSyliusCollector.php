@@ -16,7 +16,10 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Collector;
 use MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext;
 use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use Sylius\Bundle\CoreBundle\Application\Kernel;
+use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Core\Context\ShopperContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Currency\Context\CurrencyNotFoundException;
 use Sylius\Component\Locale\Context\LocaleNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +32,9 @@ final class NoCommerceSyliusCollector extends DataCollector
 
     private FeaturesProviderInterface $featuresProvider;
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function __construct(
         ShopperContextInterface $shopperContext,
         array $bundles,
@@ -38,7 +44,7 @@ final class NoCommerceSyliusCollector extends DataCollector
         $this->shopperContext = $shopperContext;
         $this->featuresProvider = $featuresProvider;
         $this->data = [
-            'version' => Kernel::VERSION,
+            'version' => Kernel::VERSION . ($this->featuresProvider->isNoCommerceEnabledForChannel() ? ' NoCommerce' : ''),
             'base_currency_code' => null,
             'currency_code' => null,
             'default_locale_code' => $defaultLocaleCode,
@@ -68,7 +74,7 @@ final class NoCommerceSyliusCollector extends DataCollector
 
     public function getVersion(): string
     {
-        return $this->data['version'] . ' NoCommerce';
+        return $this->data['version'];
     }
 
     public function getExtensions(): array
@@ -99,9 +105,22 @@ final class NoCommerceSyliusCollector extends DataCollector
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.EmptyCatchBlock)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function collect(Request $request, Response $response, Throwable $exception = null): void
     {
+        try {
+            /** @var ChannelInterface $channel */
+            $channel = $this->shopperContext->getChannel();
+
+            if (!$this->featuresProvider->isNoCommerceEnabledForChannel()) {
+                $baseCurrency = $channel->getBaseCurrency();
+                $this->data['base_currency_code'] = $baseCurrency ? $baseCurrency->getCode() : NoCurrencyContext::NONE_CURRENCY_CODE;
+                $this->data['currency_code'] = $this->shopperContext->getCurrencyCode();
+            }
+        } catch (ChannelNotFoundException|CurrencyNotFoundException $e) {
+        }
+
         try {
             $this->data['locale_code'] = $this->shopperContext->getLocaleCode();
         } catch (LocaleNotFoundException $e) {

@@ -64,3 +64,10 @@ services:
     monsieurbiz.no_commerce.provider.features_provider: 
         class: 'MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProvider'
         public: true
+        
+    # Routing Context
+    MonsieurBiz\SyliusNoCommercePlugin\Routing\NoCommerceRequestContext:
+        decorates: router.request_context
+        arguments:
+            - '@MonsieurBiz\SyliusNoCommercePlugin\Routing\NoCommerceRequestContext.inner'
+            - '@monsieurbiz.no_commerce.provider.features_provider'

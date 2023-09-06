@@ -15,7 +15,6 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Kernel;
 
 use MonsieurBiz\SyliusNoCommercePlugin\Model\Config;
 use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
-use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Routing\RouteCollection;
@@ -25,8 +24,6 @@ trait SyliusNoCommerceKernelTrait
     use MicroKernelTrait {
         MicroKernelTrait::loadRoutes as parentLoadRoutes;
     }
-
-    private FeaturesProviderInterface $featuresProvider;
 
     private array $routesToRemove = [
         // Customers & Account & Users
@@ -215,26 +212,16 @@ trait SyliusNoCommerceKernelTrait
     {
         $collection = $this->parentLoadRoutes($loader);
 
-        $this->setFeatureProvider($this->container->get('monsieurbiz.no_commerce.provider.features_provider'));
-        if (!$this->featuresProvider->isNoCommerceEnabledForChannel()) {
-            return $collection;
-        }
-
         $routesToRemove = $this->getRoutesToRemove();
         foreach ($collection as $name => $route) {
             foreach ($routesToRemove as $routeToRemove) {
                 if (false !== strpos($name, $routeToRemove)) {
-                    $route->setCondition('1 == 0');
+                    $route->setCondition("not(context.getPathInfo() matches '`^%sylius.security.new_api_route%`') and not context.checkNoCommerce()");
                 }
             }
         }
 
         return $collection;
-    }
-
-    private function setFeatureProvider(FeaturesProviderInterface $featuresProvider): void
-    {
-        $this->featuresProvider = $featuresProvider;
     }
 
     /**

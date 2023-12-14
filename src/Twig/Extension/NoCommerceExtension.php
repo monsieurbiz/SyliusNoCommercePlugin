@@ -13,18 +13,18 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\Twig\Extension;
 
-use MonsieurBiz\SyliusSettingsPlugin\Provider\SettingsProviderInterface;
+use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class NoCommerceExtension extends AbstractExtension
 {
-    private SettingsProviderInterface $settingProvider;
+    private FeaturesProviderInterface $featuresProvider;
 
     public function __construct(
-        SettingsProviderInterface $settingProvider
+        FeaturesProviderInterface $featuresProvider
     ) {
-        $this->settingProvider = $settingProvider;
+        $this->featuresProvider = $featuresProvider;
     }
 
     public function getFunctions(): array
@@ -36,6 +36,6 @@ final class NoCommerceExtension extends AbstractExtension
 
     public function isNoCommerceEnabled(): bool
     {
-        return (bool) $this->settingProvider->getSettingValue('monsieurbiz.nocommerce', 'enabled');
+        return $this->featuresProvider->isNoCommerceEnabledForChannel();
     }
 }

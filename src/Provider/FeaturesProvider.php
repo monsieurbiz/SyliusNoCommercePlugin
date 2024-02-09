@@ -32,7 +32,7 @@ final class FeaturesProvider implements FeaturesProviderInterface
         $this->nocommerceSettings = $nocommerceSettings;
     }
 
-    public function isNoCommerceEnabledForChannel(ChannelInterface $channel = null): bool
+    public function isNoCommerceEnabledForChannel(?ChannelInterface $channel = null): bool
     {
         try {
             if (null === $channel) {

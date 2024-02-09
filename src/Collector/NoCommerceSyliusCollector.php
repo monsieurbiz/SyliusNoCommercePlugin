@@ -107,7 +107,7 @@ final class NoCommerceSyliusCollector extends DataCollector
      * @SuppressWarnings(PHPMD.EmptyCatchBlock)
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    public function collect(Request $request, Response $response, Throwable $exception = null): void
+    public function collect(Request $request, Response $response, ?Throwable $exception = null): void
     {
         try {
             /** @var ChannelInterface $channel */

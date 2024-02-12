@@ -216,7 +216,7 @@ trait SyliusNoCommerceKernelTrait
         foreach ($collection as $name => $route) {
             foreach ($routesToRemove as $routeToRemove) {
                 if (false !== strpos($name, $routeToRemove)) {
-                    $route->setCondition("not(context.getPathInfo() matches '`^%sylius.security.new_api_route%`') and not context.checkNoCommerce()");
+                    $route->setCondition('not context.checkNoCommerce()');
                 }
             }
         }

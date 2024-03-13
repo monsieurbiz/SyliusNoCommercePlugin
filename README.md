@@ -53,6 +53,14 @@ Add some annotations to your `src/Entity/Channel/Channel.php` entity to prevent 
 +  *     )
 +  * })
    */
+  #[ORM\Entity]
+  #[ORM\Table(name: 'sylius_channel')]
++  #[ORM\AssociationOverrides([
++      new ORM\AssociationOverride(
++          name: 'baseCurrency',
++          joinColumns: new ORM\JoinColumn(name: 'base_currency_id', referencedColumnName: 'id', nullable: true)
++      )]
++  )]
   class Channel extends BaseChannel
 ```
 

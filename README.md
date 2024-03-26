@@ -101,6 +101,18 @@ monsieurbiz_sylius_nocommerce:
 
 You can allow different sections by changing the parameters to `true`.
 
+## Ignore routes
+
+By default, the disable firewall listener will ignore the following routes for the developer toolbar.
+
+You can ignore additional routes, such as the preview route for error pages, by adding them to the `config/packages/monsieurbiz_sylius_nocommerce_plugin.yaml` file:
+
+```yaml
+parameters:
+    monsieurbiz_sylius_nocommerce.disable_firewall.ignored_routes:
+        - "_preview_error"
+```
+
 ## Contributing
 
 You can open an issue or a Pull Request if you want! 😘  

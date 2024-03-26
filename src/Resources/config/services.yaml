@@ -1,5 +1,6 @@
 parameters:
     sylius.form.type.channel.validation_groups: [monsieurbiz_nocommerce]
+    monsieurbiz_sylius_nocommerce.disable_firewall.ignored_routes: []
 
 services:
     _defaults:
@@ -22,12 +23,14 @@ services:
     MonsieurBiz\SyliusNoCommercePlugin\Menu\AdminCustomerShowMenuListener:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.customer.show, priority: -10000 }
-    
+
     MonsieurBiz\SyliusNoCommercePlugin\Menu\ShopAccountMenuListener:
         tags:
             - { name: kernel.event_listener, event: sylius.menu.shop.account, priority: -10000 }
-                
+
     MonsieurBiz\SyliusNoCommercePlugin\EventListener\DisableFirewallListener:
+        arguments:
+            $ignoredRoutes: '%monsieurbiz_sylius_nocommerce.disable_firewall.ignored_routes%'
         tags:
             - { name: kernel.event_listener, event: kernel.request, priority: -10000 }
 
@@ -54,17 +57,17 @@ services:
         arguments:
             - '@MonsieurBiz\SyliusNoCommercePlugin\Context\NoCurrencyContext.inner'
             - '@monsieurbiz.no_commerce.provider.features_provider'
-    
+
     MonsieurBiz\SyliusNoCommercePlugin\Registry\TemplateBlockRegistryDecorator:
         decorates: 'Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface'
         arguments:
             $templateBlockRegistry: '@MonsieurBiz\SyliusNoCommercePlugin\Registry\TemplateBlockRegistryDecorator.inner'
             $featuresProvider: '@monsieurbiz.no_commerce.provider.features_provider'
 
-    monsieurbiz.no_commerce.provider.features_provider: 
+    monsieurbiz.no_commerce.provider.features_provider:
         class: 'MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProvider'
         public: true
-        
+
     # Routing Context
     MonsieurBiz\SyliusNoCommercePlugin\Routing\NoCommerceRequestContext:
         decorates: router.request_context

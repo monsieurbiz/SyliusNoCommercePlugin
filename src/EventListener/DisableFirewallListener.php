@@ -34,16 +34,20 @@ final class DisableFirewallListener
 
     private FeaturesProviderInterface $featuresProvider;
 
+    private array $ignoredRoutes;
+
     public function __construct(
         FirewallMap $firewallContext,
         SettingsInterface $nocommerceSettings,
         ChannelContextInterface $channelContext,
-        FeaturesProviderInterface $featuresProvider
+        FeaturesProviderInterface $featuresProvider,
+        array $ignoredRoutes = []
     ) {
         $this->firewallContext = $firewallContext;
         $this->nocommerceSettings = $nocommerceSettings;
         $this->channelContext = $channelContext;
         $this->featuresProvider = $featuresProvider;
+        $this->ignoredRoutes = $ignoredRoutes;
     }
 
     /**
@@ -73,9 +77,10 @@ final class DisableFirewallListener
 
     private function canCheckRoute(RequestEvent $event): bool
     {
-        // allow profiler routes
+        $ignoredRoutes = array_merge(self::PROFILER_ROUTES, $this->ignoredRoutes);
+
         return $event->isMainRequest()
-            && !\in_array($event->getRequest()->attributes->get('_route'), self::PROFILER_ROUTES, true);
+            && !\in_array($event->getRequest()->attributes->get('_route'), $ignoredRoutes, true);
     }
 
     private function getFirewallContextName(Request $request): string

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace MonsieurBiz\SyliusNoCommercePlugin\Form\Type\Settings;
 
 use MonsieurBiz\SyliusNoCommercePlugin\Firewall\RegistryInterface;
+use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProvider;
 use MonsieurBiz\SyliusSettingsPlugin\Form\AbstractSettingsType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -59,6 +60,21 @@ class NoCommerceType extends AbstractSettingsType
             'required' => false,
             'multiple' => true,
             'choices' => $choices,
+        ]);
+        $this->addWithDefaultCheckbox($builder, 're_enabled_admin_routes', ChoiceType::class, [
+            'label' => 'monsieurbiz.nocommerce.ui.form.field.re_enabled_admin_routes.label',
+            'required' => false,
+            'multiple' => true,
+            'choices' => [
+                'sylius.ui.countries' => FeaturesProvider::COUNTRIES_KEY,
+                'sylius.ui.currencies' => FeaturesProvider::CURRENCIES_KEY,
+                'sylius.ui.inventory' => FeaturesProvider::INVENTORY_KEY,
+                'sylius.ui.payment' => FeaturesProvider::PAYMENT_KEY,
+                'sylius.menu.admin.main.catalog.header' => FeaturesProvider::CATALOG_KEY,
+                'sylius.ui.shipping' => FeaturesProvider::SHIPPING_KEY,
+                'sylius.ui.tax' => FeaturesProvider::TAX_KEY,
+                'sylius.ui.zones' => FeaturesProvider::ZONES_KEY,
+            ],
         ]);
     }
 }

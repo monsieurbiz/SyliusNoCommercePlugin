@@ -41,9 +41,9 @@ final class NoCommerceRequestContext extends BaseRequestContext
         $this->featuresProvider = $featuresProvider;
     }
 
-    public function checkNoCommerce(): bool
+    public function checkNoCommerce(array $params = []): bool
     {
-        return $this->featuresProvider->isNoCommerceEnabledForChannel();
+        return $this->featuresProvider->isNoCommerceEnabledForChannel() && !$this->featuresProvider->isRouteForcedEnabled($params);
     }
 
     /**

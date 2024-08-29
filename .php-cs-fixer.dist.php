@@ -51,9 +51,6 @@ $config
         'blank_line_after_namespace' => true,
         'blank_lines_before_namespace' => true,
         'blank_line_before_statement' => true,
-        'braces' => [
-            'allow_single_line_closure' => true,
-        ],
         'cast_spaces' => true,
         'class_attributes_separation' => true,
         'class_definition' => [
@@ -63,7 +60,7 @@ $config
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'comment_to_phpdoc' => true,
-        'compact_nullable_typehint' => true,
+        'compact_nullable_type_declaration' => true,
         'concat_space' => [
             'spacing' => 'one',
         ],
@@ -89,7 +86,6 @@ $config
         'fully_qualified_strict_types' => true,
         'function_declaration' => true,
         'function_to_constant' => true,
-        'function_typehint_space' => true,
         'general_phpdoc_tag_rename' => true,
         'global_namespace_import' => [
             'import_classes' => true,
@@ -124,7 +120,7 @@ $config
         ],
         'native_constant_invocation' => true,
         'native_function_casing' => true,
-        'new_with_braces' => true,
+        'new_with_parentheses' => true,
         'no_alias_functions' => true,
         'no_alternative_syntax' => true,
         'no_blank_lines_after_class_opening' => true,
@@ -163,14 +159,14 @@ $config
         'no_short_bool_cast' => true,
         'no_spaces_after_function_name' => true,
         'no_spaces_around_offset' => true,
-        'no_spaces_inside_parenthesis' => true,
+        'spaces_inside_parentheses' => true,
         'no_superfluous_elseif' => true,
         'no_superfluous_phpdoc_tags' => [
             'allow_mixed' => true,
         ],
         'no_unset_cast' => true,
         'no_unneeded_control_parentheses' => true,
-        'no_unneeded_curly_braces' => true,
+        'no_unneeded_braces' => true,
         'no_unneeded_final_method' => true,
         'no_unset_on_property' => true,
         'no_unused_imports' => true,
@@ -183,6 +179,7 @@ $config
         'no_whitespace_in_blank_line' => true,
         'non_printable_character' => true,
         'normalize_index_brace' => true,
+        'nullable_type_declaration_for_default_null_value' => false,
         'object_operator_without_whitespace' => true,
         'ordered_imports' => [
             'imports_order' => [
@@ -217,7 +214,9 @@ $config
         'phpdoc_order' => true,
         'phpdoc_return_self_reference' => true,
         'phpdoc_scalar' => true,
-        'phpdoc_separation' => ['groups' => [['ORM\\*'], ['Assert\\*']]],
+        'phpdoc_separation' => ['groups' => [
+            ['ORM\\*'], ['Assert\\*'],
+        ]],
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_tag_type' => true,
         'phpdoc_to_comment' => false,
@@ -253,6 +252,7 @@ $config
             'elements' => ['arrays'],
         ],
         'trim_array_spaces' => true,
+        'type_declaration_spaces' => true,
         'unary_operator_spaces' => true,
         'visibility_required' => [
             'elements' => [

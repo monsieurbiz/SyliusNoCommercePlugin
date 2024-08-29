@@ -1,8 +1,0 @@
-imports:
-    - { resource: "@MonsieurBizSyliusNoCommercePlugin/Resources/config/config.yaml" }
-
-monsieurbiz_sylius_nocommerce:
-    config:
-        allow_countries: false
-        allow_customers: false
-        allow_zones: false

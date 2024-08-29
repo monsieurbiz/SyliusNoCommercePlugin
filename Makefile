@@ -97,6 +97,7 @@ ${APP_DIR}/php.ini: php.ini
 	(cd ${APP_DIR} && ln -sf ../../php.ini)
 
 apply_dist:
+	# Don't use symlink for Kernel.php file otherwise the resource paths are incorrect
 	ROOT_DIR=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST)))); \
 	for i in `cd dist && find . -type f`; do \
 		FILE_PATH=`echo $$i | sed 's|./||'`; \
@@ -104,7 +105,13 @@ apply_dist:
 		echo $$FILE_PATH; \
 		(cd ${APP_DIR} && rm -f $$FILE_PATH); \
 		(cd ${APP_DIR} && mkdir -p $$FOLDER_PATH); \
-		(cd ${APP_DIR} && ln -s $$ROOT_DIR/dist/$$FILE_PATH $$FILE_PATH); \
+		if [[ $$FILE_PATH != 'src/Kernel.php' ]]; then \
+			echo "Link $$FILE_PATH"; \
+			(cd ${APP_DIR} && ln -s $$ROOT_DIR/dist/$$FILE_PATH $$FILE_PATH); \
+		else \
+			echo "Copy $$FILE_PATH"; \
+			(cd ${APP_DIR} && cp $$ROOT_DIR/dist/$$FILE_PATH $$FILE_PATH); \
+		fi \
     done
 
 ###

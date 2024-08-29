@@ -18,6 +18,7 @@ use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 final class FirewallRegistryPass implements CompilerPassInterface
 {
@@ -29,7 +30,12 @@ final class FirewallRegistryPass implements CompilerPassInterface
             if (!$configuration instanceof ChildDefinition) {
                 continue;
             }
-            $parent = $container->getDefinition($configuration->getParent());
+            try {
+                $parent = $container->getDefinition($configuration->getParent());
+            } catch (ServiceNotFoundException $e) {
+                continue;
+            }
+
             if (FirewallContext::class !== $parent->getClass()) {
                 continue;
             }

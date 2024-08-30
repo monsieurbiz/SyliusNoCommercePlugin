@@ -3,14 +3,29 @@
 <h1 align="center">No Commerce for Sylius</h1>
 
 [![No Commerce Plugin license](https://img.shields.io/github/license/monsieurbiz/SyliusNoCommercePlugin?public)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/blob/master/LICENSE.txt)
-[![Security](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/security.yaml/badge.svg)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/security.yaml)
-[![Tests](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/tests.yaml/badge.svg)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/tests.yaml)
-[![Flex Recipe](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/recipe.yaml/badge.svg)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions/workflows/recipe.yaml)
+[![Tests Status](https://img.shields.io/github/actions/workflow/status/monsieurbiz/SyliusNoCommercePlugin/tests.yaml?branch=master&logo=github)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions?query=workflow%3ATests)
+[![Recipe Status](https://img.shields.io/github/actions/workflow/status/monsieurbiz/SyliusNoCommercePlugin/recipe.yaml?branch=master&label=recipes&logo=github)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions?query=workflow%3ASecurity)
+[![Security Status](https://img.shields.io/github/actions/workflow/status/monsieurbiz/SyliusNoCommercePlugin/security.yaml?branch=master&label=security&logo=github)](https://github.com/monsieurbiz/SyliusNoCommercePlugin/actions?query=workflow%3ASecurity)
 
 This plugin disables the e-commerce parts of Sylius.  
 Basically it disables the routes and updates the admin and frontend templates.
 
+
+## Compatibility
+
+| Sylius Version | PHP Version |
+|---|---|
+| 1.11 | 8.0 - 8.1 |
+| 1.12 | 8.1 - 8.2 |
+| 1.13 | 8.1 - 8.2 |
+
 ## Installation
+
+If you want to use our recipes, you can configure your composer.json by running:
+
+```bash
+composer config --no-plugins --json extra.symfony.endpoint '["https://api.github.com/repos/monsieurbiz/symfony-recipes/contents/index.json?ref=flex/master","flex://defaults"]'
+```
 
 ```bash
 composer require monsieurbiz/sylius-no-commerce-plugin

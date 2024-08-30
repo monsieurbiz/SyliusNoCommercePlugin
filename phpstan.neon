@@ -12,5 +12,4 @@ parameters:
         - 'tests/Application/**/*'
 
     ignoreErrors:
-        - identifier: missingType.generics
         - identifier: missingType.iterableValue

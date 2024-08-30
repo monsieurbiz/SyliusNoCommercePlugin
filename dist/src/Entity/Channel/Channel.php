@@ -18,11 +18,12 @@ use Sylius\Component\Core\Model\Channel as BaseChannel;
 
 #[ORM\Entity()]
 #[ORM\Table(name: 'sylius_channel')]
-#[ORM\AssociationOverrides([
-    new ORM\AssociationOverride(
-        name: 'baseCurrency',
-        joinColumns: new ORM\JoinColumn(name: 'base_currency_id', referencedColumnName: 'id', nullable: true)
-    )]
+#[ORM\AssociationOverrides(
+    [
+        new ORM\AssociationOverride(
+            name: 'baseCurrency',
+            joinColumns: new ORM\JoinColumn(name: 'base_currency_id', referencedColumnName: 'id', nullable: true)
+        )]
 )]
 /**
  * @ORM\Entity

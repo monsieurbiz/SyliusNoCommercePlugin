@@ -92,7 +92,6 @@ final class TemplateBlockRegistryDecorator implements TemplateBlockRegistryInter
             $templateBlocksPriorityQueue->insert($templateBlock, $templateBlock->getPriority());
         }
 
-        /** @phpstan-ignore-next-line */
         return $templateBlocksPriorityQueue->toArray();
     }
 

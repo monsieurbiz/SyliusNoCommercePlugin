@@ -40,6 +40,9 @@ class NoCommerceType extends AbstractSettingsType
         $choices = [];
         foreach ($this->firewallRegistry as $firewall) {
             $firewallConfig = $firewall->getConfig();
+            if (null === $firewallConfig) {
+                continue;
+            }
             $firewallName = $firewallConfig->getName();
             if (\in_array($firewallName, self::FIREWALLS_NAMES_CANNOT_BE_DISABLED, true)) {
                 continue;

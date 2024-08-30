@@ -58,6 +58,6 @@ final class NoCommerceRequestContext extends BaseRequestContext
             return \call_user_func($callback, ...$arguments);
         }
 
-        throw new Exception(sprintf('Method %s not found for class "%s"', $name, \get_class($this->decorated)));
+        throw new Exception(\sprintf('Method %s not found for class "%s"', $name, \get_class($this->decorated)));
     }
 }

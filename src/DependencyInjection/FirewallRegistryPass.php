@@ -17,10 +17,14 @@ use Symfony\Bundle\SecurityBundle\Security\FirewallContext;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class FirewallRegistryPass implements CompilerPassInterface
 {
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function process(ContainerBuilder $container): void
     {
         $registry = $container->findDefinition('MonsieurBiz\SyliusNoCommercePlugin\Firewall\RegistryInterface');
@@ -29,7 +33,13 @@ final class FirewallRegistryPass implements CompilerPassInterface
             if (!$configuration instanceof ChildDefinition) {
                 continue;
             }
-            $parent = $container->getDefinition($configuration->getParent());
+
+            try {
+                $parent = $container->getDefinition($configuration->getParent());
+            } catch (ServiceNotFoundException $e) {
+                continue;
+            }
+
             if (FirewallContext::class !== $parent->getClass()) {
                 continue;
             }

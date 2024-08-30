@@ -7,3 +7,5 @@ monsieurbiz:
                         label: Firewalls to be disabled
                     enabled:
                         label: Enabled
+                    re_enabled_admin_routes: 
+                        label: Admin routes to re-enable

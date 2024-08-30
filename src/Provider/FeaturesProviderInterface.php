@@ -18,4 +18,6 @@ use Sylius\Component\Core\Model\ChannelInterface;
 interface FeaturesProviderInterface
 {
     public function isNoCommerceEnabledForChannel(?ChannelInterface $channel = null): bool;
+
+    public function isRouteForcedEnabled(array $params = []): bool;
 }

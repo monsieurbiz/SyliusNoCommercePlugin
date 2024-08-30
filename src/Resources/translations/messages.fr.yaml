@@ -7,3 +7,5 @@ monsieurbiz:
                         label: Firewalls à désactiver
                     enabled:
                         label: Activer
+                    re_enabled_admin_routes: 
+                        label: Routes à réactiver pour l'admin

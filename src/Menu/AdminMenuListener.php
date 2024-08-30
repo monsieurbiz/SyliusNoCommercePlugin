@@ -41,7 +41,8 @@ final class AdminMenuListener
         }
 
         $menu->removeChild('sales');
-        $menu->removeChild('catalog');
+
+        $this->handleCatalogMenu($menu);
         $menu->removeChild('marketing');
 
         if (!$this->config->areCustomersAllowed()) {
@@ -55,19 +56,64 @@ final class AdminMenuListener
 
     private function removeConfigurationChildren(ItemInterface $configuration): void
     {
-        $configuration->removeChild('currencies');
+        $this->removeChildIfRoutesDisabled($configuration, 'currencies');
 
         if (!$this->config->areZonesAllowed() && !$this->config->areCountriesAllowed()) {
-            $configuration->removeChild('countries');
+            $this->removeChildIfRoutesDisabled($configuration, 'countries');
         }
         if (!$this->config->areZonesAllowed()) {
-            $configuration->removeChild('zones');
+            $this->removeChildIfRoutesDisabled($configuration, 'zones');
         }
+
         $configuration->removeChild('exchange_rates');
-        $configuration->removeChild('payment_methods');
-        $configuration->removeChild('shipping_methods');
-        $configuration->removeChild('shipping_categories');
-        $configuration->removeChild('tax_categories');
-        $configuration->removeChild('tax_rates');
+        $this->removeChildIfRoutesDisabled($configuration, 'payment_methods');
+        $this->removeChildIfRoutesDisabled($configuration, 'shipping_methods');
+        $this->removeChildIfRoutesDisabled($configuration, 'shipping_categories');
+        $this->removeChildIfRoutesDisabled($configuration, 'tax_categories');
+        $this->removeChildIfRoutesDisabled($configuration, 'tax_rates');
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
+    private function removeChildIfRoutesDisabled(ItemInterface $menu, string $menuName): void
+    {
+        $menuItem = $menu->getChild($menuName);
+        if (!$menuItem || null === $menuItem->getExtra('routes')) {
+            return;
+        }
+
+        foreach ($menuItem->getExtra('routes') as $route) {
+            if (!isset($route['route'])) {
+                continue;
+            }
+            // If one route does not match the forced enabled routes, we remove the menu item
+            if (!$this->featuresProvider->isRouteForcedEnabled(['_route' => $route['route']])) {
+                $menu->removeChild($menuName);
+            }
+        }
+    }
+
+    private function handleCatalogMenu(ItemInterface $menu): void
+    {
+        $catalogMenu = $menu->getChild('catalog');
+
+        if (null === $catalogMenu) {
+            return;
+        }
+
+        $this->removeChildIfRoutesDisabled($catalogMenu, 'taxons');
+        $this->removeChildIfRoutesDisabled($catalogMenu, 'products');
+        $this->removeChildIfRoutesDisabled($catalogMenu, 'inventory');
+        $this->removeChildIfRoutesDisabled($catalogMenu, 'attributes');
+        $this->removeChildIfRoutesDisabled($catalogMenu, 'options');
+        $this->removeChildIfRoutesDisabled($catalogMenu, 'association_types');
+
+        // We remove the catalog menu if it has no children
+        if ($catalogMenu->hasChildren()) {
+            return;
+        }
+
+        $menu->removeChild('catalog');
     }
 }

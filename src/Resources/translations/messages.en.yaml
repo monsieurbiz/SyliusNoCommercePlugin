@@ -7,5 +7,27 @@ monsieurbiz:
                         label: Firewalls to be disabled
                     enabled:
                         label: Enabled
-                    re_enabled_admin_routes: 
-                        label: Admin routes to re-enable
+                    routes_to_enable: 
+                        label: Route to enable
+            customer: 'Customers'
+            product: 'Products'
+            taxon: 'Taxons'
+            checkout: 'Checkout'
+            address: 'Addresses'
+            order: 'Orders'
+            adjustment: 'Adjustements'
+            promotion: 'Promotions'
+            shipment: 'Shipments'
+            inventory: 'Inventory'
+            attribute: 'Attributes'
+            payment: 'Payments'
+            paypal: 'Paypal'
+            tax: 'Taxes'
+            currency: 'Currencies'
+            exchange: 'Exchanges rates'
+            zone: 'Zones'
+            country: 'Countries'
+            province: 'Provinces'
+            cart: 'Carts'
+            dashboard: 'Dashboard'
+            other: 'Autres'

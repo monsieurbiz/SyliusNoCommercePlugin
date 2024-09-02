@@ -7,5 +7,27 @@ monsieurbiz:
                         label: Firewalls à désactiver
                     enabled:
                         label: Activer
-                    re_enabled_admin_routes: 
-                        label: Routes à réactiver pour l'admin
+                    routes_to_enable: 
+                        label: Routes à réactiver
+            customer: 'Clients'
+            product: 'Produits'
+            taxon: 'Taxons'
+            checkout: 'Checkout'
+            address: 'Addresses'
+            order: 'Commandes'
+            adjustment: 'Ajustements'
+            promotion: 'Promotions'
+            shipment: 'Expéditions'
+            inventory: 'Inventaire'
+            attribute: 'Attributs'
+            payment: 'Paiements'
+            paypal: 'Paypal'
+            tax: 'Taxes'
+            currency: 'Devises'
+            exchange: 'Taux de change'
+            zone: 'Zones'
+            country: 'Pays'
+            province: 'Provinces'
+            cart: 'Paniers'
+            dashboard: 'Dashboard'
+            other: 'Autres'

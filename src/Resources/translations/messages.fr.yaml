@@ -6,6 +6,6 @@ monsieurbiz:
                     disabled_firewall_contexts:
                         label: Firewalls à désactiver
                     enabled:
-                        label: Activer
-                    re_enabled_admin_routes: 
-                        label: Routes à réactiver pour l'admin
+                        label: Activer, vider le cache après modification
+                    routes_to_enable: 
+                        label: 'Routes à réactiver, vider le cache après modification (⚠️ Bêta : cette fonctionnalité est en cours de développement)'

@@ -14,24 +14,29 @@ declare(strict_types=1);
 namespace MonsieurBiz\SyliusNoCommercePlugin\Menu;
 
 use Knp\Menu\ItemInterface;
-use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
 use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\RouterInterface;
 
 final class AdminMenuListener
 {
-    private ConfigInterface $config;
-
     private FeaturesProviderInterface $featuresProvider;
 
+    private RouterInterface $router;
+
     public function __construct(
-        ConfigInterface $config,
-        FeaturesProviderInterface $featuresProvider
+        FeaturesProviderInterface $featuresProvider,
+        RouterInterface $router
     ) {
-        $this->config = $config;
         $this->featuresProvider = $featuresProvider;
+        $this->router = $router;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function __invoke(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
@@ -40,80 +45,56 @@ final class AdminMenuListener
             return;
         }
 
-        $menu->removeChild('sales');
+        // We loop on all items and check if each route is enabled or not
+        // If the route is disabled, we remove the menu item
+        // If all children are removed, we remove the parent menu item
 
-        $this->handleCatalogMenu($menu);
-        $menu->removeChild('marketing');
+        // Retrieve all avaible routes
+        $routes = $this->router->getRouteCollection();
 
-        if (!$this->config->areCustomersAllowed()) {
-            $menu->removeChild('customers');
+        // Loop on level 1 menu items
+        foreach ($menu->getChildren() as $childMenu) {
+            // Loop on level 2 menu items
+            foreach ($childMenu->getChildren() as $menuItem) {
+                // Remove menu item if route is disabled
+                $this->removeChildIfRoutesDisabled($childMenu, $menuItem->getName(), $routes);
+            }
+
+            // Remove parent menu item if no child left
+            if (0 === \count($childMenu->getChildren())) {
+                $menu->removeChild($childMenu->getName());
+            }
         }
-
-        if (null !== $configuration = $menu->getChild('configuration')) {
-            $this->removeConfigurationChildren($configuration);
-        }
-    }
-
-    private function removeConfigurationChildren(ItemInterface $configuration): void
-    {
-        $this->removeChildIfRoutesDisabled($configuration, 'currencies');
-
-        if (!$this->config->areZonesAllowed() && !$this->config->areCountriesAllowed()) {
-            $this->removeChildIfRoutesDisabled($configuration, 'countries');
-        }
-        if (!$this->config->areZonesAllowed()) {
-            $this->removeChildIfRoutesDisabled($configuration, 'zones');
-        }
-
-        $configuration->removeChild('exchange_rates');
-        $this->removeChildIfRoutesDisabled($configuration, 'payment_methods');
-        $this->removeChildIfRoutesDisabled($configuration, 'shipping_methods');
-        $this->removeChildIfRoutesDisabled($configuration, 'shipping_categories');
-        $this->removeChildIfRoutesDisabled($configuration, 'tax_categories');
-        $this->removeChildIfRoutesDisabled($configuration, 'tax_rates');
     }
 
     /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * If the route in the menu items matches a route that is disabled, remove the menu item.
+     * We now that the route is disabled if the condition contains "not context.checkNoCommerce()".
      */
-    private function removeChildIfRoutesDisabled(ItemInterface $menu, string $menuName): void
+    private function removeChildIfRoutesDisabled(ItemInterface $menu, string $menuName, RouteCollection $routes): void
     {
         $menuItem = $menu->getChild($menuName);
         if (!$menuItem || null === $menuItem->getExtra('routes')) {
             return;
         }
 
-        foreach ($menuItem->getExtra('routes') as $route) {
-            if (!isset($route['route'])) {
-                continue;
-            }
-            // If one route does not match the forced enabled routes, we remove the menu item
-            if (!$this->featuresProvider->isRouteForcedEnabled(['_route' => $route['route']])) {
-                $menu->removeChild($menuName);
-            }
+        $route = $this->getRouteByUri((string) $menuItem->getUri(), $routes);
+        if (false !== strpos((string) $route?->getCondition(), 'not context.checkNoCommerce()')) {
+            $menu->removeChild($menuName);
         }
     }
 
-    private function handleCatalogMenu(ItemInterface $menu): void
+    /**
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
+    private function getRouteByUri(string $uri, RouteCollection $routes): ?Route
     {
-        $catalogMenu = $menu->getChild('catalog');
-
-        if (null === $catalogMenu) {
-            return;
+        foreach ($routes as $name => $route) {
+            if ($uri === $route->getPath()) {
+                return $route;
+            }
         }
 
-        $this->removeChildIfRoutesDisabled($catalogMenu, 'taxons');
-        $this->removeChildIfRoutesDisabled($catalogMenu, 'products');
-        $this->removeChildIfRoutesDisabled($catalogMenu, 'inventory');
-        $this->removeChildIfRoutesDisabled($catalogMenu, 'attributes');
-        $this->removeChildIfRoutesDisabled($catalogMenu, 'options');
-        $this->removeChildIfRoutesDisabled($catalogMenu, 'association_types');
-
-        // We remove the catalog menu if it has no children
-        if ($catalogMenu->hasChildren()) {
-            return;
-        }
-
-        $menu->removeChild('catalog');
+        return null;
     }
 }

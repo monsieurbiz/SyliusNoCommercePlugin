@@ -6,6 +6,6 @@ monsieurbiz:
                     disabled_firewall_contexts:
                         label: Firewalls to be disabled
                     enabled:
-                        label: Enabled
-                    re_enabled_admin_routes: 
-                        label: Admin routes to re-enable
+                        label: Enabled, clear cache after modification
+                    routes_to_enable: 
+                        label: 'Route to enable, clear cache after modification (⚠️ Beta: this feature is under development)'

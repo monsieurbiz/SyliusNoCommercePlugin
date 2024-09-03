@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusNoCommercePlugin\Kernel;
 
+use Exception;
 use MonsieurBiz\SyliusNoCommercePlugin\Model\Config;
 use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
 use MonsieurBiz\SyliusNoCommercePlugin\Provider\FeaturesProviderInterface;
@@ -84,7 +85,12 @@ trait SyliusNoCommerceKernelTrait
         // Loop on settings to add routes
         /** @var FeaturesProviderInterface $featuresProvider */
         $featuresProvider = $this->container->get('monsieurbiz.no_commerce.provider.features_provider');
-        $routesToEnable = $featuresProvider->getRoutesToEnable();
+
+        try {
+            $routesToEnable = $featuresProvider->getRoutesToEnable();
+        } catch (Exception $e) {
+            $routesToEnable = [];
+        }
 
         foreach ($routesToEnable as $route) {
             $this->enableRoute($route);

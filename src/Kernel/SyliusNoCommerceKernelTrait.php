@@ -52,7 +52,7 @@ trait SyliusNoCommerceKernelTrait
     private function getConfig(): ConfigInterface
     {
         return new Config(
-            (array) $this->container->getParameter('monsieurbiz_sylius_nocommerce.config') ?? []
+            (array) ($this->container->getParameter('monsieurbiz_sylius_nocommerce.config') ?? [])
         );
     }
 
@@ -65,21 +65,21 @@ trait SyliusNoCommerceKernelTrait
     {
         $config = $this->getConfig();
         $routesToRemove = [];
-        $this->routesToRemove = ConfigInterface::ROUTES_BY_GROUP;
+        $routesByGroup = ConfigInterface::ROUTES_BY_GROUP;
 
         /** @deprecated */
         if ($config->areCustomersAllowed()) {
-            unset($this->routesToRemove['customer']);
+            unset($routesByGroup['customer_shop'], $routesByGroup['customer_api'], $routesByGroup['customer_admin']);
         }
 
         /** @deprecated */
         if ($config->areZonesAllowed()) {
-            unset($this->routesToRemove['zone']);
+            unset($routesByGroup['zone_admin'], $routesByGroup['zone_api']);
         }
 
         /** @deprecated */
         if ($config->areZonesAllowed() || $config->areCountriesAllowed()) {
-            unset($this->routesToRemove['country']);
+            unset($routesByGroup['country_admin'], $routesByGroup['country_api']);
         }
 
         // Loop on settings to add routes
@@ -93,25 +93,30 @@ trait SyliusNoCommerceKernelTrait
         }
 
         foreach ($routesToEnable as $route) {
-            $this->enableRoute($route);
+            $this->enableRoute($route, $routesByGroup);
         }
 
-        foreach ($this->routesToRemove as $routes) {
+        foreach ($routesByGroup as $routes) {
             $routesToRemove = array_merge($routesToRemove, $routes);
         }
 
         return $routesToRemove;
     }
 
-    private function enableRoute(string $route): void
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
+    private function enableRoute(string $route, array &$routesByGroup): void
     {
-        foreach ($this->routesToRemove as $group => $routes) {
-            if (false !== ($key = array_search($route, $routes, true))) {
-                unset($this->routesToRemove[$group][$key]);
+        foreach ($routesByGroup as $group => $routes) {
+            // Remove route from group
+            if (false !== ($key = array_search($route, $routes, true)) && isset($routesByGroup[$group][$key])) {
+                unset($routesByGroup[$group][$key]);
             }
 
-            if (empty($this->routesToRemove[$group])) {
-                unset($this->routesToRemove[$group]);
+            // Remove group if empty
+            if (empty($routesByGroup[$group])) {
+                unset($routesByGroup[$group]);
             }
         }
     }

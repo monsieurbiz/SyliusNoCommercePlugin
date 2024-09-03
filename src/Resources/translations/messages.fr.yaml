@@ -6,28 +6,6 @@ monsieurbiz:
                     disabled_firewall_contexts:
                         label: Firewalls à désactiver
                     enabled:
-                        label: Activer
+                        label: Activer, vider le cache après modification
                     routes_to_enable: 
-                        label: Routes à réactiver
-            customer: 'Clients'
-            product: 'Produits'
-            taxon: 'Taxons'
-            checkout: 'Checkout'
-            address: 'Addresses'
-            order: 'Commandes'
-            adjustment: 'Ajustements'
-            promotion: 'Promotions'
-            shipment: 'Expéditions'
-            inventory: 'Inventaire'
-            attribute: 'Attributs'
-            payment: 'Paiements'
-            paypal: 'Paypal'
-            tax: 'Taxes'
-            currency: 'Devises'
-            exchange: 'Taux de change'
-            zone: 'Zones'
-            country: 'Pays'
-            province: 'Provinces'
-            cart: 'Paniers'
-            dashboard: 'Dashboard'
-            other: 'Autres'
+                        label: 'Routes à réactiver, vider le cache après modification (⚠️ Bêta : cette fonctionnalité est en cours de développement)'

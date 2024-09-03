@@ -68,7 +68,7 @@ class NoCommerceType extends AbstractSettingsType
                 'label' => 'monsieurbiz.nocommerce.ui.form.field.routes_to_enable.label',
                 'required' => false,
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
                 'choices' => $this->getEnabledRouteChoices(),
             ]);
         }
@@ -77,10 +77,14 @@ class NoCommerceType extends AbstractSettingsType
     private function getEnabledRouteChoices(): array
     {
         $allRoutes = ConfigInterface::ROUTES_BY_GROUP;
+        $choices = [];
 
-        return array_combine(
-            array_map(static fn ($key) => 'monsieurbiz.nocommerce.ui.' . $key, array_keys($allRoutes)),
-            array_keys($allRoutes)
-        );
+        foreach ($allRoutes as $group => $routes) {
+            foreach ($routes as $route) {
+                $choices[$group][$route] = $route;
+            }
+        }
+
+        return $choices;
     }
 }

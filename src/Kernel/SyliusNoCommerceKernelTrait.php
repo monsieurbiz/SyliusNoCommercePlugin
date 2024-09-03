@@ -87,9 +87,7 @@ trait SyliusNoCommerceKernelTrait
         $routesToEnable = $featuresProvider->getRoutesToEnable();
 
         foreach ($routesToEnable as $route) {
-            if (isset($this->routesToRemove[$route])) {
-                unset($this->routesToRemove[$route]);
-            }
+            $this->enableRoute($route);
         }
 
         foreach ($this->routesToRemove as $routes) {
@@ -97,5 +95,18 @@ trait SyliusNoCommerceKernelTrait
         }
 
         return $routesToRemove;
+    }
+
+    private function enableRoute(string $route): void
+    {
+        foreach ($this->routesToRemove as $group => $routes) {
+            if (false !== ($key = array_search($route, $routes, true))) {
+                unset($this->routesToRemove[$group][$key]);
+            }
+
+            if (empty($this->routesToRemove[$group])) {
+                unset($this->routesToRemove[$group]);
+            }
+        }
     }
 }

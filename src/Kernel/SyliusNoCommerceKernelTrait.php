@@ -38,7 +38,12 @@ trait SyliusNoCommerceKernelTrait
         foreach ($collection as $name => $route) {
             foreach ($routesToRemove as $routeToRemove) {
                 if (false !== strpos($name, $routeToRemove)) {
-                    $route->setCondition('not context.checkNoCommerce()');
+                    $routeCondition = $route->getCondition();
+                    if ($routeCondition && false === strpos($routeCondition, 'not context.checkNoCommerce()')) {
+                        $route->setCondition($routeCondition . ' and not context.checkNoCommerce()');
+                    } elseif (!$routeCondition) {
+                        $route->setCondition('not context.checkNoCommerce()');
+                    }
                 }
             }
         }

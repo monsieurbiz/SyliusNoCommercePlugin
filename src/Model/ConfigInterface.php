@@ -15,6 +15,8 @@ namespace MonsieurBiz\SyliusNoCommercePlugin\Model;
 
 interface ConfigInterface
 {
+    public const ADMIN_ROUTE_GROUP_MATCHER = '_admin';
+
     public const ROUTES_BY_GROUP = [
         /**
          * Customers & Account & Users.

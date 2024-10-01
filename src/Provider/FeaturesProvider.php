@@ -49,8 +49,8 @@ final class FeaturesProvider implements FeaturesProviderInterface
         return (bool) $this->nocommerceSettings->getCurrentValue($channel, null, 'enabled');
     }
 
-    public function getRoutesToEnable(): array
+    public function allowAdmin(): bool
     {
-        return $this->nocommerceSettings->getCurrentValue(null, null, 'routes_to_enable') ?? [];
+        return (bool) $this->nocommerceSettings->getCurrentValue(null, null, 'allow_admin');
     }
 }

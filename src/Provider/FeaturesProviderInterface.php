@@ -19,5 +19,5 @@ interface FeaturesProviderInterface
 {
     public function isNoCommerceEnabledForChannel(?ChannelInterface $channel = null): bool;
 
-    public function getRoutesToEnable(): array;
+    public function allowAdmin(): bool;
 }

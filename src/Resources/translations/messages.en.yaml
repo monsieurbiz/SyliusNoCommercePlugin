@@ -7,5 +7,5 @@ monsieurbiz:
                         label: Firewalls to be disabled
                     enabled:
                         label: Enabled, clear cache after modification
-                    routes_to_enable: 
-                        label: 'Route to enable, clear cache after modification (⚠️ Beta: this feature is under development)'
+                    allow_admin:
+                        label: Allow all routes in admin, clear cache after modification

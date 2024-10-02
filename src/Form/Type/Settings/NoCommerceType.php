@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace MonsieurBiz\SyliusNoCommercePlugin\Form\Type\Settings;
 
 use MonsieurBiz\SyliusNoCommercePlugin\Firewall\RegistryInterface;
-use MonsieurBiz\SyliusNoCommercePlugin\Model\ConfigInterface;
 use MonsieurBiz\SyliusSettingsPlugin\Form\AbstractSettingsType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -56,35 +55,19 @@ class NoCommerceType extends AbstractSettingsType
             'label' => 'monsieurbiz.nocommerce.ui.form.field.enabled.label',
             'required' => false,
         ]);
+
+        if ($this->isDefaultForm($builder)) {
+            $builder->add('allow_admin', CheckboxType::class, [
+                'label' => 'monsieurbiz.nocommerce.ui.form.field.allow_admin.label',
+                'required' => false,
+            ]);
+        }
+
         $this->addWithDefaultCheckbox($builder, 'disabled_firewall_contexts', ChoiceType::class, [
             'label' => 'monsieurbiz.nocommerce.ui.form.field.disabled_firewall_contexts.label',
             'required' => false,
             'multiple' => true,
             'choices' => $choices,
         ]);
-
-        if ($this->isDefaultForm($builder)) {
-            $this->addWithDefaultCheckbox($builder, 'routes_to_enable', ChoiceType::class, [
-                'label' => 'monsieurbiz.nocommerce.ui.form.field.routes_to_enable.label',
-                'required' => false,
-                'multiple' => true,
-                'expanded' => false,
-                'choices' => $this->getEnabledRouteChoices(),
-            ]);
-        }
-    }
-
-    private function getEnabledRouteChoices(): array
-    {
-        $allRoutes = ConfigInterface::ROUTES_BY_GROUP;
-        $choices = [];
-
-        foreach ($allRoutes as $group => $routes) {
-            foreach ($routes as $route) {
-                $choices[$group][$route] = $route;
-            }
-        }
-
-        return $choices;
     }
 }

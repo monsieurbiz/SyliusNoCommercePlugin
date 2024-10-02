@@ -87,42 +87,24 @@ trait SyliusNoCommerceKernelTrait
             unset($routesByGroup['country_admin'], $routesByGroup['country_api']);
         }
 
-        // Loop on settings to add routes
         /** @var FeaturesProviderInterface $featuresProvider */
         $featuresProvider = $this->container->get('monsieurbiz.no_commerce.provider.features_provider');
 
         try {
-            $routesToEnable = $featuresProvider->getRoutesToEnable();
+            $allowAdmin = $featuresProvider->allowAdmin();
         } catch (Exception $e) {
-            $routesToEnable = [];
+            $allowAdmin = false;
         }
 
-        foreach ($routesToEnable as $route) {
-            $this->enableRoute($route, $routesByGroup);
-        }
+        foreach ($routesByGroup as $routesKey => $routes) {
+            // Allow admin group routes
+            if (true === $allowAdmin && false !== strpos($routesKey, ConfigInterface::ADMIN_ROUTE_GROUP_MATCHER)) {
+                continue;
+            }
 
-        foreach ($routesByGroup as $routes) {
             $routesToRemove = array_merge($routesToRemove, $routes);
         }
 
         return $routesToRemove;
-    }
-
-    /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     */
-    private function enableRoute(string $route, array &$routesByGroup): void
-    {
-        foreach ($routesByGroup as $group => $routes) {
-            // Remove route from group
-            if (false !== ($key = array_search($route, $routes, true)) && isset($routesByGroup[$group][$key])) {
-                unset($routesByGroup[$group][$key]);
-            }
-
-            // Remove group if empty
-            if (empty($routesByGroup[$group])) {
-                unset($routesByGroup[$group]);
-            }
-        }
     }
 }

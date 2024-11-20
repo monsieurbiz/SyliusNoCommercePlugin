@@ -56,6 +56,7 @@ final class ChannelTypeExtension extends AbstractTypeExtension
             ->remove('currencies')
             ->remove('defaultTaxZone')
             ->remove('taxCalculationStrategy')
+            ->remove('channelPriceHistoryConfig')
             ->addEventSubscriber(new RemoveBaseCurrencySubscriber())
         ;
     }

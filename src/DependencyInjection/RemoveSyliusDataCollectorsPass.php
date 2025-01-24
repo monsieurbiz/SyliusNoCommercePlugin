@@ -18,6 +18,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class RemoveSyliusDataCollectorsPass implements CompilerPassInterface
 {
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function process(ContainerBuilder $container): void
     {
         foreach ($container->getDefinitions() as $id => $definition) {
@@ -27,6 +30,9 @@ final class RemoveSyliusDataCollectorsPass implements CompilerPassInterface
                     $container->removeDefinition($id);
                 }
             }
+        }
+        if ($container->hasAlias('sylius.collector.cart')) {
+            $container->removeAlias('sylius.collector.cart');
         }
     }
 }
